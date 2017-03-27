@@ -1,5 +1,5 @@
 # Current architecture 
-Here is the architecture used during Rendez-vous Bloodbowl 14 (may 2016). Basics are described [here](index.md)
+Here is the architecture used during Rendez-vous Bloodbowl 14 (may 2016). Basics are described [here (index)](index.md)
 
 ## User's point of view
 The main user is the participant to the tournament. The main purpose of this system
