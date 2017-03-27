@@ -13,4 +13,7 @@ or
   * reference API server and our own Javascript client
 or
   * our own API server and reference Javascript client
+  
+## Current architecture
+Current architecture is describe [here (current)](current.md).
 
