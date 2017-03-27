@@ -1,5 +1,5 @@
 # Current architecture 
-Here is the architecture used during Rendez-vous Bloodbowl 14 (may 2016).
+Here is the architecture used during Rendez-vous Bloodbowl 14 (may 2016). Basics are described [here](index.md)
 
 ## User's point of view
 The main user is the participant to the tournament. The main purpose of this system
@@ -7,7 +7,7 @@ The main user is the participant to the tournament. The main purpose of this sys
 
  1. At the begin of the tournament, user activates wifi 
  and connect to the _rdvbb_ open wifi network ;
- 1. User open his browser with url _http://192.168.2.3_ ;
+ 1. User open his browser with url <http://192.168.2.3> ;
  1. User can navigate on the web application.
 
 ## Hardware view
