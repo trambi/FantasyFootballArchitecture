@@ -1,0 +1,6 @@
+---
+
+-include: prepare_raspberry.yml
+-include: clean_raspberry.yml
+-include: install_dns.yml
+

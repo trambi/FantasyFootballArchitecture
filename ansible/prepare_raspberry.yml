@@ -1,0 +1,15 @@
+---
+- hosts: frontend
+  vars:
+  remote_user: "{{ raspberry_initial_user }}"
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: add new user
+    user: 
+     name: "{{ admin_user }}"
+     shell: /bin/bash
+     groups: sudo
+     append: yes
+     password: "{{ admin_passwd }}"
+

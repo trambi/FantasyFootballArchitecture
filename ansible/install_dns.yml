@@ -1,0 +1,11 @@
+---
+- hosts: frontend
+  remote_user: orgardvbb
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: install dnsmasq
+    apt: 
+     name: dnsmasq
+     state: present
+
