@@ -1,0 +1,31 @@
+---
+- hosts: backend
+  remote_user: orgardvbb
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: install apache2
+    apt: 
+     name: apache2
+     state: present
+  - name: install php5
+    apt: 
+     name: php5
+     state: present
+  - name: install php5-mysql
+    apt: 
+     name: php5-mysql
+     state: present
+  - name: apply patch to apache2 php.ini
+    patch:
+      src: ./files/etc_php5_apache2_php.ini.patch
+      dest: /etc/php5/apache2/php.ini
+  - name: apply patch to cli php.ini
+    patch:
+      src: ./files/etc_php5_apache2_php.ini.patch
+      dest: /etc/php5/cli/php.ini
+  - name: download symfony2
+    get_url:
+      url: https://symfony.com/installer
+      dest: /usr/local/bin/symfony
+      mode: 0551

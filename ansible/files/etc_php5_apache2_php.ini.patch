@@ -1,0 +1,11 @@
+--- php.ini.patched	2017-05-03 01:24:01.001463178 +0200
++++ php.ini	2017-05-03 01:24:22.545644082 +0200
+@@ -891,7 +891,7 @@
+ [Date]
+ ; Defines the default timezone used by the date functions
+ ; http://php.net/date.timezone
+-;date.timezone =
++date.timezone = Europe/Paris
+ 
+ ; http://php.net/date.default-latitude
+ ;date.default_latitude = 31.7667
