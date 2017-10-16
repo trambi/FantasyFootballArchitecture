@@ -31,3 +31,5 @@ WORKDIR /var/www/html/ws
 RUN apt-get remove -y git curl && \
 sed -i "s#AppBundle\\\AppBundle#FantasyFootball\\\TournamentCoreBundle\\\FantasyFootballTournamentCoreBundle#" /var/www/html/ws/app/AppKernel.php && \
 composer dump-autoload  
+EXPOSE 80
+CMD ["apachectl","-DFOREGROUND"]
