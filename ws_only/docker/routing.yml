@@ -1,0 +1,3 @@
+fantasy_football_tournament_core:
+  resource: "@FantasyFootballTournamentCoreBundle/Resources/config/routing.yml"
+  prefix:   /ws/
