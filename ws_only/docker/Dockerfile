@@ -21,8 +21,15 @@ WORKDIR /var/www/html
 
 RUN symfony new ws 2.8 && \
 git clone --branch eurobowl_2017 https://github.com/trambi/FantasyFootball.git /var/www/html/ws/src/FantasyFootball && \
-rm -fr /var/www/html/ws/src/AppBundle 
+rm -fr /var/www/html/ws/src/AppBundle && \
+echo "services:" >> /var/www/html/ws/app/config/config.yml && \
+echo "  fantasy_football_core_db_conf:" >> /var/www/html/ws/app/config/config.yml && \
+echo "    class: FantasyFootball\TournamentCoreBundle\DatabaseConfiguration" >> /var/www/html/ws/app/config/config.yml && \
+echo "    arguments: [\"%database_host%\",\"%database_name%\",\"%database_user%\",\"%database_password%\"]" >> /var/www/html/ws/app/config/config.yml 
+
 COPY routing.yml /var/www/html/ws/app/config/routing.yml
+COPY parameters.yml /var/www/html/ws/app/config/parameters.yml
+COPY adapt_param_from_env.bash /root/adapt_param_from_env.bash
 WORKDIR /var/www/html/ws/src/FantasyFootball
 RUN /bin/bash deploy_on_ws.bash start
 
@@ -32,4 +39,4 @@ RUN apt-get remove -y git curl && \
 sed -i "s#AppBundle\\\AppBundle#FantasyFootball\\\TournamentCoreBundle\\\FantasyFootballTournamentCoreBundle#" /var/www/html/ws/app/AppKernel.php && \
 composer dump-autoload  
 EXPOSE 80
-CMD ["apachectl","-DFOREGROUND"]
+CMD ["/bin/bash","/root/adapt_param_from_env.bash"]
