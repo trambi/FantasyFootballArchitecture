@@ -1,6 +1,6 @@
 FROM nginx:alpine
 RUN apk add --no-cache --virtual git && \
-git clone https://github.com/Zorblug/FantasyFootballWebView.git /tmp/fantasy && \
+git clone https://github.com/jmaaanu/FantasyFootballWebView.git /tmp/fantasy && \
 apk del git && \
 cp -R /tmp/fantasy/NodeServer/public/* /usr/share/nginx/html/ && \
 rm -fr /tmp/fantasy 
