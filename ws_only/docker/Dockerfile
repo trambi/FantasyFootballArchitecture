@@ -20,7 +20,7 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 WORKDIR /var/www/html
 
 RUN symfony new ws 2.8 && \
-git clone --branch eurobowl_2017 https://github.com/trambi/FantasyFootball.git /var/www/html/ws/src/FantasyFootball && \
+git clone https://github.com/trambi/FantasyFootball.git /var/www/html/ws/src/FantasyFootball && \
 rm -fr /var/www/html/ws/src/AppBundle && \
 echo "services:" >> /var/www/html/ws/app/config/config.yml && \
 echo "  fantasy_football_core_db_conf:" >> /var/www/html/ws/app/config/config.yml && \
