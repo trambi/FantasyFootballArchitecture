@@ -1,3 +1,6 @@
 fantasy_football_tournament_core:
   resource: "@FantasyFootballTournamentCoreBundle/Resources/config/routing.yml"
   prefix:   /ws/
+fantasy_football_tournament_admin:
+  resource: "@FantasyFootballTournamentAdminBundle/Resources/config/routing.yml"
+  prefix:   /admin/
