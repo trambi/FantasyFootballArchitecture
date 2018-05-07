@@ -1,5 +1,16 @@
 version: '2'
 services:
+  webclient:
+    build: "./webclient/docker"
+    ports:
+      - "80:80"
+    networks:
+      - frontend
+    restart: on-failure
+    depends_on:
+      - "webserver"
+    environment:
+      - API_FQDN=${API_FQDN}
   webserver:
     build: "./webserver/docker"
     ports:
