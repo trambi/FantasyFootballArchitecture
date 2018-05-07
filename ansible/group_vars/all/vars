@@ -1,5 +1,0 @@
----
-raspberry_initial_user: pi
-raspberry_initial_passwd: raspberry
-admin_user: orgardvbb
-admin_passwd: "{{ admin_passwd_vault }}"
