@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `tournament_coach_team` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `tournament_edition` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `day_1` date NOT NULL,
   `day_2` date NOT NULL,
   `round_number` int(11) NOT NULL,
@@ -97,12 +97,12 @@ CREATE TABLE IF NOT EXISTS `tournament_edition` (
   `ranking_strategy` varchar(65) COLLATE utf8_unicode_ci NOT NULL,
   `first_day_round` int(11) NOT NULL DEFAULT '3',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `tournament_edition` WRITE;
 /*!40000 ALTER TABLE `tournament_edition` DISABLE KEYS */;
-INSERT INTO `tournament_edition` VALUES (1,'2018-05-07','2018-05-08',5,0,0,0,'Rdvbb14',3);
+INSERT INTO `tournament_edition` VALUES (NULL,'2018-05-07','2018-05-08',5,0,0,0,'Rdvbb14',3);
 /*!40000 ALTER TABLE `tournament_edition` ENABLE KEYS */;
 UNLOCK TABLES;
 
