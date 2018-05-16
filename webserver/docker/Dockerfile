@@ -2,7 +2,7 @@ FROM debian
 
 RUN apt-get update && \
 apt-get install -y apache2 php7.0 php7.0-mysql apache2-mod-php7.0 php7.0-xml php7.0-zip && \
-apt-get install -y curl git && \
+apt-get install -y curl && \
 echo "date.timezone=Europe/Paris" >> /etc/php/7.0/cli/php.ini && \
 echo "date.timezone=Europe/Paris" >> /etc/php/7.0/apache2/php.ini && \
 mkdir -p /usr/local/bin && \
@@ -20,7 +20,10 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 WORKDIR /var/www/html
 
 RUN symfony new ws 2.8 && \
-git clone https://github.com/trambi/FantasyFootball.git /var/www/html/ws/src/FantasyFootball && \
+curl -L https://github.com/trambi/FantasyFootball/archive/v1.16.tar.gz -o v1.16.tar.gz && \
+tar xzf v1.16.tar.gz && \
+rm -fr /var/www/html/ws/src/FantasyFootball
+RUN cp -R /var/www/html/FantasyFootball-1.16 /var/www/html/ws/src/FantasyFootball && \
 rm -fr /var/www/html/ws/src/AppBundle && \
 echo "services:" >> /var/www/html/ws/app/config/config.yml && \
 echo "  fantasy_football_core_db_conf:" >> /var/www/html/ws/app/config/config.yml && \
