@@ -40,8 +40,10 @@ RUN /bin/bash deploy_on_ws.bash start
 
 WORKDIR /var/www/html/ws
 
-RUN apt-get remove -y git curl && \
+RUN apt-get remove -y curl && \
+apt-get autoremove -y && \
 composer require symfony/assetic-bundle && \
-composer dump-autoload
+composer dump-autoload && \
+chown -R www-data:www-data /var/www
 EXPOSE 80
 CMD ["/bin/bash","/root/adapt_param_from_env.bash"]
