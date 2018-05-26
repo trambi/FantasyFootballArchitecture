@@ -36,7 +36,7 @@ services:
       - backend
     volumes:
       - "mydata:/var/lib/mysql"
-      - "./tournament_init.sql:/docker-entrypoint-initdb.d/01_init.sql:Z"
+      - "./sql:/docker-entrypoint-initdb.d/:Z"
 
 networks:
   frontend:
