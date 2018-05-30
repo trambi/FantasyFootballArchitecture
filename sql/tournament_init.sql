@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `tournament_race` (
   `nom_fr_2` varchar(33) COLLATE utf8_unicode_ci NOT NULL,
   `reroll` smallint(6) NOT NULL,
   PRIMARY KEY (`id_race`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,34 @@ CREATE TABLE IF NOT EXISTS `tournament_race` (
 
 LOCK TABLES `tournament_race` WRITE;
 /*!40000 ALTER TABLE `tournament_race` DISABLE KEYS */;
-INSERT INTO `tournament_race` VALUES (1,1,'Orc','Orc','Orc','d\'orcs',6),(1,2,'Skaven','Skaven','Skaven','de skavens',6),(1,3,'Elfe noir','Dark elf','Dark Elves','d\'elfes noirs',5),(1,4,'Humain','Human','Humans','d\'hommes',5),(1,5,'Nain','Dwarf','Dwarves','de nains',4),(1,6,'Haut elfe','High elf','High Elves','d\'hauts elfes',5),(1,7,'Gobelin','Goblin','Goblins','de gobelins',6),(1,8,'Halfling','Halfling','Halflings','de halflings',6),(1,9,'Elfe sylvain','Wood elf','Wood elves','d\'elfes sylvains',5),(1,10,'Chaos','Chaos','Chaos','du Chaos',7),(1,11,'Nain du Chaos','Chaos dwarf','Chaos dwarves','de nains du Chaos',7),(1,12,'Mort-vivant','Undead','Undead','de mort-vivants',7),(1,13,'Nordique','Norse','Norse','de nordiques',6),(1,14,'Amazone','Amazon','Amazons','d\'amazones',4),(1,15,'Homme-lézard','Lizardmen','Lizardmen','d\'hommes lézards',6),(1,16,'Khemri','Khemri','Khemri','de Khemri',7),(1,17,'Nécromantique','Necromantic','Necromantic','nécromantique',7),(1,18,'Elfe pro','Elf','Elves','d\'elfes pro',5),(1,19,'Nurgle','Nurgle','Nurgle\'s Rotters','des pourris de Nurgle',7),(1,20,'Ogre','Ogre','Ogres','d\'ogres',7),(1,21,'Vampire','Vampire','Vampires','de vampires',7),(1,22,'Bas fonds','Underworld','Underworld','des bas fonds',7),(1,23,'Pacte chaotique','Chaos Pact','Chaos Pact','chaotique',7),(1,24,'Slann','Slann','Slann','de slanns',5),(1,25,'Inconnu','Unknown','Unknown','inconnu',5),(1,26,'Skink','skink','skink','skink',5);
+INSERT INTO `tournament_race` VALUES (1,1,'Orc','Orc','Orc','d\'orcs',6),
+(1,2,'Skaven','Skaven','Skaven','de skavens',6),
+(1,3,'Elfe noir','Dark elf','Dark Elves','d\'elfes noirs',5),
+(1,4,'Humain','Human','Humans','d\'hommes',5),
+(1,5,'Nain','Dwarf','Dwarves','de nains',4),
+(1,6,'Haut elfe','High elf','High Elves','d\'hauts elfes',5),
+(1,7,'Gobelin','Goblin','Goblins','de gobelins',6),
+(1,8,'Halfling','Halfling','Halflings','de halflings',6),
+(1,9,'Elfe sylvain','Wood elf','Wood elves','d\'elfes sylvains',5),
+(1,10,'Chaos','Chaos','Chaos','du Chaos',7),
+(1,11,'Nain du Chaos','Chaos dwarf','Chaos dwarves','de nains du Chaos',7),
+(1,12,'Mort-vivant','Undead','Undead','de mort-vivants',7),
+(1,13,'Nordique','Norse','Norse','de nordiques',6),
+(1,14,'Amazone','Amazon','Amazons','d\'amazones',4),
+(1,15,'Homme-lézard','Lizardmen','Lizardmen','d\'hommes lézards',6),
+(1,16,'Khemri','Khemri','Khemri','de Khemri',7),
+(1,17,'Nécromantique','Necromantic','Necromantic','nécromantique',7),
+(1,18,'Elfe pro','Elf','Elves','d\'elfes pro',5),
+(1,19,'Nurgle','Nurgle','Nurgle\'s Rotters','des pourris de Nurgle',7),
+(1,20,'Ogre','Ogre','Ogres','d\'ogres',7),
+(1,21,'Vampire','Vampire','Vampires','de vampires',7),
+(1,22,'Bas fonds','Underworld','Underworld','des bas fonds',7),
+(1,23,'Pacte chaotique','Chaos Pact','Chaos Pact','chaotique',7),
+(1,24,'Slann','Slann','Slann','de slanns',5),
+(1,25,'Inconnu','Unknown','Unknown','inconnu',5),
+(1,26,'Skink','skink','skink','skink',5),
+(1,27,'Khorne','Khorne','Khorne','de Khorne',7),
+(1,28,'Brettonien','Brettonian','Brettonian','de brettoniens',7);
 /*!40000 ALTER TABLE `tournament_race` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
