@@ -20,10 +20,10 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 WORKDIR /var/www/html
 
 RUN symfony new ws 2.8 && \
-curl -L https://github.com/trambi/FantasyFootball/archive/v1.16.tar.gz -o v1.16.tar.gz && \
-tar xzf v1.16.tar.gz && \
+curl -L https://github.com/trambi/FantasyFootball/archive/v1.17beta.tar.gz -o v1.17beta.tar.gz && \
+tar xzf v1.17beta.tar.gz && \
 rm -fr /var/www/html/ws/src/FantasyFootball
-RUN cp -R /var/www/html/FantasyFootball-1.16 /var/www/html/ws/src/FantasyFootball && \
+RUN cp -R /var/www/html/FantasyFootball-1.17beta /var/www/html/ws/src/FantasyFootball && \
 rm -fr /var/www/html/ws/src/AppBundle && \
 echo "services:" >> /var/www/html/ws/app/config/config.yml && \
 echo "  fantasy_football_core_db_conf:" >> /var/www/html/ws/app/config/config.yml && \
