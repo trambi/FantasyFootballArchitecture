@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `tournament_edition` (
 
 LOCK TABLES `tournament_edition` WRITE;
 /*!40000 ALTER TABLE `tournament_edition` DISABLE KEYS */;
-INSERT INTO `tournament_edition` VALUES (NULL,'2018-05-07','2018-05-08',5,0,0,0,'Rdvbb14',3);
+INSERT INTO `tournament_edition` VALUES (NULL,'2018-06-16','2018-06-17',5,0,0,1,'Lutece16',3);
 /*!40000 ALTER TABLE `tournament_edition` ENABLE KEYS */;
 UNLOCK TABLES;
 
