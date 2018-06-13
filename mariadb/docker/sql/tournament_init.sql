@@ -96,13 +96,14 @@ CREATE TABLE IF NOT EXISTS `tournament_edition` (
   `full_triplette` tinyint(4) NOT NULL DEFAULT '1',
   `ranking_strategy` varchar(65) COLLATE utf8_unicode_ci NOT NULL,
   `first_day_round` int(11) NOT NULL DEFAULT '3',
+  `organiser` varchar(65) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `tournament_edition` WRITE;
 /*!40000 ALTER TABLE `tournament_edition` DISABLE KEYS */;
-INSERT INTO `tournament_edition` VALUES (NULL,'2018-06-16','2018-06-17',5,0,0,1,'Lutece16',3);
+INSERT INTO `tournament_edition` VALUES (NULL,'2018-06-16','2018-06-17',5,0,0,1,'Lutece16',3,'Pedro');
 /*!40000 ALTER TABLE `tournament_edition` ENABLE KEYS */;
 UNLOCK TABLES;
 
