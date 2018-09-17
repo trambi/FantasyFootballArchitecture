@@ -110,3 +110,12 @@ def test_list_editions(apirooturl):
     editions = response.json()
     assert len(editions) != 0
     check_edition(editions[0])
+
+
+def test_edition_one(apirooturl):
+    """Test that Edition/1 return an edtion object"""
+    url = apirooturl + "/Edition/1"
+    response = requests.get(url)
+    assert response.status_code == 200
+    edition = response.json()
+    check_edition(edition)
