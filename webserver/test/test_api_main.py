@@ -64,3 +64,12 @@ def test_index(apirooturl, expectedroutes):
     assert response.status_code == 200
     routes = response.json()
     assert expectedroutes == routes
+
+
+def test_version(apirooturl):
+    """Test that version returns a version object"""
+    url = apirooturl + "/version"
+    response = requests.get(url)
+    assert response.status_code == 200
+    version = response.json()
+    assert version.get("version") is not None
