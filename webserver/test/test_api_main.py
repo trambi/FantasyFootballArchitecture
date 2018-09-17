@@ -73,3 +73,30 @@ def test_version(apirooturl):
     assert response.status_code == 200
     version = response.json()
     assert version.get("version") is not None
+
+
+def check_edition(edition):
+    neededkeys = (
+        "id",
+        "day1",
+        "day2",
+        "roundNumber",
+        "currentRound",
+        "useFinale",
+        "fullTriplette",
+        "rankingStrategyName",
+        "rankingStrategy",
+        "firstDayRound",
+        "rankings",
+    )
+    for key in neededkeys:
+        assert edition.get(key) is not None
+
+
+def test_current_edition(apirooturl):
+    """Test that Edition/current return an edtion object"""
+    url = apirooturl + "/Edition/current"
+    response = requests.get(url)
+    assert response.status_code == 200
+    edition = response.json()
+    check_edition(edition)
