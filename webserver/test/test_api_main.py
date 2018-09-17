@@ -72,7 +72,9 @@ def test_version(apirooturl):
     response = requests.get(url)
     assert response.status_code == 200
     version = response.json()
-    assert version.get("version") is not None
+    versionvalue = version.get("version")
+    assert versionvalue is not None
+    assert versionvalue.startswith("1.")
 
 
 def check_edition(edition):
