@@ -165,3 +165,36 @@ def test_coach(apirooturl):
     assert response.status_code == 200
     coach = response.json()
     check_coach(coach)
+
+
+def check_coach_mate(coachmate):
+    neededkeys = (
+        "coach",
+        "coachTeamId",
+        "coachTeamName",
+        "teamId",
+        "teamName",
+        "isPrebooking",
+    )
+    for key in neededkeys:
+        assert coachmate.get(key) is not None
+
+
+def check_coach_team(coachteam):
+    neededkeys = ("id", "name", "coachTeamMates")
+    for key in neededkeys:
+        assert coachteam.get(key) is not None
+    for coachmate in coachteam["coachTeamMates"]:
+        check_coach_mate(coachmate)
+
+
+def test_list_coach_team(apirooturl):
+    """Test that CoachTeams/<edition> returns a list of coach_team object"""
+    url = apirooturl + "/CoachTeams/16"
+    response = requests.get(url)
+    assert response.status_code == 200
+    coachteams = response.json()
+    assert len(coachteams) != 0
+    for id, coachteam in coachteams.items():
+        assert int(id) != 0
+        check_coach_team(coachteam)
