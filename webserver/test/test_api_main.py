@@ -198,3 +198,12 @@ def test_list_coach_team(apirooturl):
     for id, coachteam in coachteams.items():
         assert int(id) != 0
         check_coach_team(coachteam)
+
+
+def test_coach_team(apirooturl):
+    """Test that CoachTeam/<id> returns a coach_team object"""
+    url = apirooturl + "/CoachTeam/334"
+    response = requests.get(url)
+    assert response.status_code == 200
+    coachteam = response.json()
+    check_coach_team(coachteam)
