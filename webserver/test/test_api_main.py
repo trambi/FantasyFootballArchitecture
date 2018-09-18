@@ -96,7 +96,7 @@ def check_edition(edition):
 
 
 def test_current_edition(apirooturl):
-    """Test that Edition/current return an edtion object"""
+    """Test that Edition/current return an edition object"""
     url = apirooturl + "/Edition/current"
     response = requests.get(url)
     assert response.status_code == 200
@@ -104,8 +104,8 @@ def test_current_edition(apirooturl):
     check_edition(edition)
 
 
-def test_list_editions(apirooturl):
-    """Test that Edition/current return an edtion object"""
+def test_list_edition(apirooturl):
+    """Test that Editions return a list of edition object"""
     url = apirooturl + "/Editions"
     response = requests.get(url)
     assert response.status_code == 200
@@ -115,9 +115,44 @@ def test_list_editions(apirooturl):
 
 
 def test_edition_one(apirooturl):
-    """Test that Edition/1 return an edtion object"""
+    """Test that Edition/1 return an edition object"""
     url = apirooturl + "/Edition/1"
     response = requests.get(url)
     assert response.status_code == 200
     edition = response.json()
     check_edition(edition)
+
+
+def check_coach(coach):
+    neededkeys = (
+        "id",
+        "teamName",
+        "name",
+        "raceId",
+        "email",
+        "ff",
+        "reroll",
+        "apothecary",
+        "assistants",
+        "cheerleaders",
+        "edition",
+        "nafNumber",
+        "coachTeamId",
+        "raceName",
+        "coachTeamName",
+        "ready",
+    )
+    for key in neededkeys:
+        assert coach.get(key) is not None
+
+
+def test_list_coach(apirooturl):
+    """Test that Coach/<edition> return a list of coach object"""
+    url = apirooturl + "/Coachs/1"
+    response = requests.get(url)
+    assert response.status_code == 200
+    coachs = response.json()
+    assert len(coachs) != 0
+    for id, coach in coachs.items():
+        print(coach)
+        check_coach(coach)
