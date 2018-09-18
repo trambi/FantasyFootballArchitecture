@@ -160,7 +160,7 @@ def test_list_coach(apirooturl):
 
 def test_coach(apirooturl):
     """Test that Coach/<id> returns a coach object"""
-    url = apirooturl + "/Coach/2"
+    url = apirooturl + "/Coach/1"
     response = requests.get(url)
     assert response.status_code == 200
     coach = response.json()
@@ -190,7 +190,7 @@ def check_coach_team(coachteam):
 
 def test_list_coach_team(apirooturl):
     """Test that CoachTeams/<edition> returns a list of coach_team object"""
-    url = apirooturl + "/CoachTeams/16"
+    url = apirooturl + "/CoachTeams/1"
     response = requests.get(url)
     assert response.status_code == 200
     coachteams = response.json()
@@ -202,7 +202,7 @@ def test_list_coach_team(apirooturl):
 
 def test_coach_team(apirooturl):
     """Test that CoachTeam/<id> returns a coach_team object"""
-    url = apirooturl + "/CoachTeam/334"
+    url = apirooturl + "/CoachTeam/1"
     response = requests.get(url)
     assert response.status_code == 200
     coachteam = response.json()
