@@ -147,7 +147,7 @@ def check_coach(coach):
 
 
 def test_list_coach(apirooturl):
-    """Test that Coach/<edition> return a list of coach object"""
+    """Test that Coachs/<edition> returns a list of coach object"""
     url = apirooturl + "/Coachs/1"
     response = requests.get(url)
     assert response.status_code == 200
