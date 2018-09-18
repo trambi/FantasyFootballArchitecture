@@ -154,5 +154,5 @@ def test_list_coach(apirooturl):
     coachs = response.json()
     assert len(coachs) != 0
     for id, coach in coachs.items():
-        print(coach)
+        assert int(id) != 0
         check_coach(coach)
