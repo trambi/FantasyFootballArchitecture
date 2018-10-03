@@ -219,14 +219,6 @@ def test_ranking_coach(apirooturl):
     assert coachs[0].get("name") == "coach_29"
     for coach in coachs:
         check_coach(coach)
-    
-
-def test_ranking_coach_by_touchdown(apirooturl):
-    """ Test that ranking/coach/td/<edition> returns an array of coach"""
-    url = apirooturl + "/ranking/coach/td/1"
-    response = requests.get(url)
-    tdkey = "tdFor"
-    _test_ranking_by_elt(url,"tdFor")
 
 
 def _test_ranking_by_elt(url,eltkey):
@@ -242,3 +234,56 @@ def _test_ranking_by_elt(url,eltkey):
         if current > max:
           max = current
     assert max == first
+
+
+def test_ranking_coach_by_touchdown(apirooturl):
+    """ Test that ranking/coach/td/<edition> returns an array of coach
+    and the first one has most td"""
+    url = apirooturl + "/ranking/coach/td/1"
+    _test_ranking_by_elt(url,"tdFor")
+
+
+def test_ranking_coach_by_casualties(apirooturl):
+    """ Test that ranking/coach/casualties/<edition> returns an array of coach
+    and the first one has most casualties"""
+    url = apirooturl + "/ranking/coach/casualties/1"
+    _test_ranking_by_elt(url,"casualtiesFor")
+
+
+def test_ranking_coach_by_completions(apirooturl):
+    """ Test that ranking/coach/completions/<edition> returns an array of coach
+    and the first one has most completions"""
+    url = apirooturl + "/ranking/coach/completions/1"
+    _test_ranking_by_elt(url,"completionsFor")
+
+
+def test_ranking_coach_by_fouls(apirooturl):
+    """ Test that ranking/coach/fouls/<edition> returns an array of coach
+    and the first one has most fouls"""
+    url = apirooturl + "/ranking/coach/fouls/1"
+    _test_ranking_by_elt(url,"foulsFor")
+
+
+def test_ranking_coach_by_comeback(apirooturl):
+    """ Test that ranking/coach/comeback/<edition> returns an array of coach
+    and the first one has most win ranks"""
+    url = apirooturl + "/ranking/coach/comeback/1"
+    _test_ranking_by_elt(url,"diffRanking")
+
+def test_ranking_coach_by_defense(apirooturl):
+    """ Test that ranking/coach/defense/<edition> returns an array of coach
+    and the first one has least td against """
+    url = apirooturl + "/ranking/coach/defense/1"
+    response = requests.get(url)
+    defensekey = "tdAgainst"
+    assert response.status_code == 200
+    coachs = response.json()
+    assert len(coachs) != 0
+    first = coachs[0].get(defensekey)
+    min = first
+    for coach in coachs:
+        check_coach(coach)
+        current = coach.get(defensekey)
+        if current < min:
+          min = current
+    assert min == first
