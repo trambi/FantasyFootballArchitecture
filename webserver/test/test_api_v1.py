@@ -226,14 +226,19 @@ def test_ranking_coach_by_touchdown(apirooturl):
     url = apirooturl + "/ranking/coach/td/1"
     response = requests.get(url)
     tdkey = "tdFor"
+    _test_ranking_by_elt(url,"tdFor")
+
+
+def _test_ranking_by_elt(url,eltkey):
+    response = requests.get(url)
     assert response.status_code == 200
     coachs = response.json()
     assert len(coachs) != 0
-    maxtd = 0
-    tdoffirst = coachs[0].get(tdkey)
+    max = 0
+    first = coachs[0].get(eltkey)
     for coach in coachs:
         check_coach(coach)
-        currenttd = coach.get(tdkey)
-        if currenttd > maxtd:
-          maxtd = currenttd
-    assert maxtd == tdoffirst
+        current = coach.get(eltkey)
+        if current > max:
+          max = current
+    assert max == first
