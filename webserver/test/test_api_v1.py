@@ -207,3 +207,16 @@ def test_coach_team(apirooturl):
     assert response.status_code == 200
     coachteam = response.json()
     check_coach_team(coachteam)
+
+
+def test_ranking_coach(apirooturl):
+    """ Test that ranking/coach/main/<edition> returns an array of coach"""
+    url = apirooturl + "/ranking/coach/main/1"
+    response = requests.get(url)
+    assert response.status_code == 200
+    coachs = response.json()
+    assert len(coachs) != 0
+    assert coachs[0].get("name") == "coach_29"
+    for coach in coachs:
+        check_coach(coach)
+    
