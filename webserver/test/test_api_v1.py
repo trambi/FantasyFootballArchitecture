@@ -220,3 +220,20 @@ def test_ranking_coach(apirooturl):
     for coach in coachs:
         check_coach(coach)
     
+
+def test_ranking_coach_by_touchdown(apirooturl):
+    """ Test that ranking/coach/td/<edition> returns an array of coach"""
+    url = apirooturl + "/ranking/coach/td/1"
+    response = requests.get(url)
+    tdkey = "tdFor"
+    assert response.status_code == 200
+    coachs = response.json()
+    assert len(coachs) != 0
+    maxtd = 0
+    tdoffirst = coachs[0].get(tdkey)
+    for coach in coachs:
+        check_coach(coach)
+        currenttd = coach.get(tdkey)
+        if currenttd > maxtd:
+          maxtd = currenttd
+    assert maxtd == tdoffirst
