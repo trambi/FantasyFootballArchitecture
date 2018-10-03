@@ -209,30 +209,39 @@ def test_coach_team(apirooturl):
     check_coach_team(coachteam)
 
 
+def _test_ranking_elt(url, nameoffirst, eltcheck):
+    """ Helper to test that <url> returns an array of element (checked by <eltcheck>)
+    and that first element has name <nameoffirst>"""
+    response = requests.get(url)
+    assert response.status_code == 200
+    elts = response.json()
+    assert len(elts) != 0
+    assert elts[0].get("name") == nameoffirst
+    for elt in elts:
+        eltcheck(elt)
+
+
 def test_ranking_coach(apirooturl):
-    """ Test that ranking/coach/main/<edition> returns an array of coach"""
+    """ Test that ranking/coach/main/<edition> returns an array of coach
+    and that first coach is coach_29"""
     url = apirooturl + "/ranking/coach/main/1"
-    response = requests.get(url)
-    assert response.status_code == 200
-    coachs = response.json()
-    assert len(coachs) != 0
-    assert coachs[0].get("name") == "coach_29"
-    for coach in coachs:
-        check_coach(coach)
+    _test_ranking_elt(url, "coach_29", check_coach)
 
 
-def _test_ranking_by_elt(url,eltkey):
+def _test_ranking_element_by_property(url, eltcheck, propkey):
+    """Test that <url> returns an array of element (check by <eltcheck>)
+    and that the first element has most property"""
     response = requests.get(url)
     assert response.status_code == 200
-    coachs = response.json()
-    assert len(coachs) != 0
+    elements = response.json()
+    assert len(elements) != 0
     max = 0
-    first = coachs[0].get(eltkey)
-    for coach in coachs:
-        check_coach(coach)
-        current = coach.get(eltkey)
+    first = elements[0].get(propkey)
+    for elt in elements:
+        eltcheck(elt)
+        current = elt.get(propkey)
         if current > max:
-          max = current
+            max = current
     assert max == first
 
 
@@ -240,35 +249,36 @@ def test_ranking_coach_by_touchdown(apirooturl):
     """ Test that ranking/coach/td/<edition> returns an array of coach
     and the first one has most td"""
     url = apirooturl + "/ranking/coach/td/1"
-    _test_ranking_by_elt(url,"tdFor")
+    _test_ranking_element_by_property(url, check_coach, "tdFor")
 
 
 def test_ranking_coach_by_casualties(apirooturl):
     """ Test that ranking/coach/casualties/<edition> returns an array of coach
     and the first one has most casualties"""
     url = apirooturl + "/ranking/coach/casualties/1"
-    _test_ranking_by_elt(url,"casualtiesFor")
+    _test_ranking_element_by_property(url, check_coach, "casualtiesFor")
 
 
 def test_ranking_coach_by_completions(apirooturl):
     """ Test that ranking/coach/completions/<edition> returns an array of coach
     and the first one has most completions"""
     url = apirooturl + "/ranking/coach/completions/1"
-    _test_ranking_by_elt(url,"completionsFor")
+    _test_ranking_element_by_property(url, check_coach, "completionsFor")
 
 
 def test_ranking_coach_by_fouls(apirooturl):
     """ Test that ranking/coach/fouls/<edition> returns an array of coach
     and the first one has most fouls"""
     url = apirooturl + "/ranking/coach/fouls/1"
-    _test_ranking_by_elt(url,"foulsFor")
+    _test_ranking_element_by_property(url, check_coach, "foulsFor")
 
 
 def test_ranking_coach_by_comeback(apirooturl):
     """ Test that ranking/coach/comeback/<edition> returns an array of coach
     and the first one has most win ranks"""
     url = apirooturl + "/ranking/coach/comeback/1"
-    _test_ranking_by_elt(url,"diffRanking")
+    _test_ranking_element_by_property(url, check_coach, "diffRanking")
+
 
 def test_ranking_coach_by_defense(apirooturl):
     """ Test that ranking/coach/defense/<edition> returns an array of coach
@@ -285,5 +295,49 @@ def test_ranking_coach_by_defense(apirooturl):
         check_coach(coach)
         current = coach.get(defensekey)
         if current < min:
-          min = current
+            min = current
     assert min == first
+
+
+def check_coach_team_rank(coachteam):
+    """Test <coachteam> if a valid coach_team rank"""
+    neededkeys = (
+        "id",
+        "name",
+        "coachTeamPoints",
+        "points",
+        "tdFor",
+        "tdAgainst",
+        "netTd",
+        "casualtiesFor",
+        "casualtiesAgainst",
+        "netCasualties",
+        "completionsFor",
+        "completionsAgainst",
+        "netCompletions",
+        "foulsFor",
+        "foulsAgainst",
+        "netFouls",
+        "opponentIdArray",
+        "opponentCoachTeamIdArray",
+        "teams",
+        "opponentsPoints",
+        "libre",
+        "opponentCoachTeamPoints",
+        "win",
+        "draw",
+        "loss",
+        "coachTeamWin",
+        "coachTeamDraw",
+        "coachTeamLoss",
+        "finale",
+    )
+    for key in neededkeys:
+        assert coachteam.get(key) is not None
+
+
+def test_ranking_coach_team(apirooturl):
+    """ Test that ranking/coachTeam/main/<edition> returns an array of coach_team
+    and that first coach_team is coach_team_8"""
+    url = apirooturl + "/ranking/coachTeam/main/1"
+    _test_ranking_elt(url, "coach_team_8", check_coach_team_rank)
