@@ -7,8 +7,29 @@ import os
 import requests
 
 
-def list_element(url, eltcheck):
+def check_list_element(url, eltcheck):
     """ Test that <url> returns a list of element
+    (checked by <eltcheck>)"""
+    response = requests.get(url)
+    assert response.status_code == 200
+    elements = response.json()
+    assert elements
+    for element in elements:
+        eltcheck(element)
+
+
+def check_empty_list(url):
+    """ Test that <url> returns a dict of elements
+    (checked by <eltcheck>)"""
+    response = requests.get(url)
+    assert response.status_code == 200
+    elements = response.json()
+    assert type(elements) is list
+    assert len(elements) == 0
+
+
+def check_dict_element(url, eltcheck):
+    """ Test that <url> returns a dict of elements
     (checked by <eltcheck>)"""
     response = requests.get(url)
     assert response.status_code == 200
@@ -19,7 +40,17 @@ def list_element(url, eltcheck):
         eltcheck(element)
 
 
-def element(url, eltcheck):
+def check_empty_dict(url):
+    """ Test that <url> returns a dict of elements
+    (checked by <eltcheck>)"""
+    response = requests.get(url)
+    assert response.status_code == 200
+    elements = response.json()
+    assert type(elements) is dict
+    assert len(elements) == 0
+
+
+def check_element(url, eltcheck):
     """ Test that <url> returns an element (checked by eltcheck)"""
     response = requests.get(url)
     assert response.status_code == 200

@@ -33,14 +33,13 @@ def check_coach(coach):
         assert coach.get(key) is not None
 
 
-def test_list_coach():
+def test_get_coach_list():
     """Test that Coachs/<edition> returns a list of coach object"""
     url = helpertest.apirooturl() + "/Coachs/1"
-    helpertest.list_element(url, check_coach)
+    helpertest.check_dict_element(url, check_coach)
 
 
-def test_coach():
+def test_get_coach():
     """Test that Coach/<id> returns a coach object"""
     url = helpertest.apirooturl() + "/Coach/1"
-    helpertest.element(url, check_coach)
-
+    helpertest.check_element(url, check_coach)
