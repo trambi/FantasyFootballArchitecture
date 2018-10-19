@@ -2,8 +2,8 @@
 1. Client get data by connecting to API server;
 1. Data are provided by API server on json format.
 
-Reference API server is [TournamentCoreBundle](https://github.com/trambi/FantasyFootball/tree/master/TournamentCoreBundle)  
-Reference Javascript client is [FantasyFootballWebView](https://github.com/Zorblug/FantasyFootballWebView/tree/master/NodeServer/public)
+Current reference API server is [TournamentCoreBundle](https://github.com/trambi/FantasyFootball/tree/master/TournamentCoreBundle)  
+Current reference Javascript client is [FantasyFootballWebView](https://github.com/Zorblug/FantasyFootballWebView/tree/master/NodeServer/public)
 
 The main purpose is __Separation between client and server__, so you can use:
   * reference API server and reference Javascript client
