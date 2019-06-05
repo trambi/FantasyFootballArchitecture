@@ -61,3 +61,7 @@ def check_element(url, eltcheck):
 def apirooturl():
     """Return API ROOT URL from environment variable API_ROOT_URL"""
     return os.environ.get("API_ROOT_URL")
+
+def edition():
+    """Return EDITION from environment variable EDITION"""
+    return os.environ.get("EDITION","1")

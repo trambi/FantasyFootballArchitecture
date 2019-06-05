@@ -47,5 +47,5 @@ def test_list_edition():
 
 def test_edition_one():
     """Test that Edition/1 return an edition object"""
-    url = helpertest.apirooturl() + "/Edition/1"
+    url = helpertest.apirooturl() + "/Edition/" + helpertest.edition()
     helpertest.check_element(url, check_edition)

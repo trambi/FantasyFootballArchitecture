@@ -34,7 +34,7 @@ def check_coach_team(coachteam):
 
 def test_list_coach_team():
     """Test that CoachTeams/<edition> returns a list of coach_team object"""
-    url = helpertest.apirooturl() + "/CoachTeams/1"
+    url = helpertest.apirooturl() + "/CoachTeams/" + helpertest.edition()
     helpertest.check_dict_element(url, check_coach_team)
 
 

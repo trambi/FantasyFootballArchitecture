@@ -62,25 +62,25 @@ def assert_match_edition_1_coach_1(match):
 
 def test_list_match():
     """Test that Matchs/<edition>/<round> returns a list of match object"""
-    url = helpertest.apirooturl() + "/Matchs/1/1"
+    url = helpertest.apirooturl() + "/Matchs/" + helpertest.edition() + "/1"
     helpertest.check_list_element(url, assert_match_edition_1_round_1)
 
 
 def test_played_matchs():
     """Test that PlayedMatchs/<edition>/<round> returns a list of match object"""
-    url = helpertest.apirooturl() + "/PlayedMatchs/1/1"
+    url = helpertest.apirooturl() + "/PlayedMatchs/" + helpertest.edition() + "/1"
     helpertest.check_list_element(url, assert_played_match_edition_1_round_1)
 
 
 def test_to_play_matchs():
     """Test that ToPlayMatchs/<edition>/<round> returns a list of match object"""
-    url = helpertest.apirooturl() + "/ToPlayMatchs/1/5"
+    url = helpertest.apirooturl() + "/ToPlayMatchs/" + helpertest.edition() + "/5"
     helpertest.check_list_element(url, assert_to_play_match_edition_1_round_5)
 
 
 def test_to_play_matchs_empty():
     """Test that ToPlayMatchs/<edition>/<round> returns a list of match object"""
-    url = helpertest.apirooturl() + "/ToPlayMatchs/1/1"
+    url = helpertest.apirooturl() + "/ToPlayMatchs/" + helpertest.edition() + "/1"
     helpertest.check_empty_list(url)
 
 

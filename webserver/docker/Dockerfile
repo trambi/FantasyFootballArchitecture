@@ -19,11 +19,13 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 WORKDIR /var/www/html
 
 RUN symfony new ws 3.4
-ADD https://github.com/trambi/FantasyFootball/archive/v1.18-rc.1.tar.gz v1.18-rc.1.tar.gz
-RUN tar xzf v1.18-rc.1.tar.gz && \
+ADD https://github.com/trambi/FantasyFootball/archive/v1.18-rc.2.tar.gz v1.18-rc.2.tar.gz
+RUN tar xzf v1.18-rc.2.tar.gz && \
 rm -fr ws/src/FantasyFootball && \
-cp -R FantasyFootball-1.18-rc.1 ws/src/FantasyFootball && \
-rm -fr ws/src/AppBundle
+mv FantasyFootball-1.18-rc.2 ws/src/FantasyFootball && \
+rm -fr ws/src/AppBundle && \
+rm -f v1.18-rc.2.tar.gz
+
 COPY app_config_config.yml ws/app/config/config.yml
 COPY routing.yml ws/app/config/routing.yml
 COPY parameters.yml ws/app/config/parameters.yml
@@ -33,7 +35,7 @@ COPY AppKernel.php ws/app/AppKernel.php
 COPY services.yml ws/app/config/services.yml
 ADD https://github.com/twbs/bootstrap/releases/download/v4.3.1/bootstrap-4.3.1-dist.zip bootstrap-4.3.1-dist.zip
 RUN unzip bootstrap-4.3.1-dist.zip && \
-mkdir ws/web/{js,css} && \
+mkdir ws/web/js && mkdir ws/web/css && \
 cp bootstrap-4.3.1-dist/js/bootstrap.js ws/web/js/ && \
 cp bootstrap-4.3.1-dist/css/bootstrap.css ws/web/css/ && \
 rm -fr bootstrap-4.3.1-dist && \
