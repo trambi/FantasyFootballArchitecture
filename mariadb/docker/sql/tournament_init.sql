@@ -39,8 +39,17 @@ CREATE TABLE `fos_user` (
   UNIQUE KEY `UNIQ_957A647992FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_957A6479A0D96FBF` (`email_canonical`),
   UNIQUE KEY `UNIQ_957A6479C05FB297` (`confirmation_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fos_user`
+--
+
+LOCK TABLES `fos_user` WRITE;
+/*!40000 ALTER TABLE `fos_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fos_user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `tournament_coach`
@@ -107,7 +116,7 @@ CREATE TABLE `tournament_edition` (
   `first_day_round` int(11) NOT NULL DEFAULT 3,
   `organiser` varchar(65) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,8 +160,17 @@ CREATE TABLE `tournament_match` (
   PRIMARY KEY (`id`),
   KEY `IDX_BB0D551CA7F540D0` (`id_coach_1`),
   KEY `IDX_BB0D551C3EFC116A` (`id_coach_2`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin PACK_KEYS=0;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tournament_match`
+--
+
+LOCK TABLES `tournament_match` WRITE;
+/*!40000 ALTER TABLE `tournament_match` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tournament_match` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `tournament_precoach`
@@ -177,6 +195,15 @@ CREATE TABLE `tournament_precoach` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `tournament_precoach`
+--
+
+LOCK TABLES `tournament_precoach` WRITE;
+/*!40000 ALTER TABLE `tournament_precoach` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tournament_precoach` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tournament_race`
 --
 
@@ -192,7 +219,7 @@ CREATE TABLE `tournament_race` (
   `nom_fr_2` varchar(33) COLLATE utf8_unicode_ci NOT NULL,
   `reroll` smallint(6) NOT NULL,
   PRIMARY KEY (`id_race`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,34 +228,7 @@ CREATE TABLE `tournament_race` (
 
 LOCK TABLES `tournament_race` WRITE;
 /*!40000 ALTER TABLE `tournament_race` DISABLE KEYS */;
-INSERT INTO `tournament_race` VALUES (1,1,'Orc','Orc','Orc','d''orcs',6),
-(1,2,'Skaven','Skaven','Skaven','de skavens',6),
-(1,3,'Elfe noir','Dark elf','Dark Elves','d''elfes noirs',5),
-(1,4,'Humain','Human','Humans','d''hommes',5),
-(1,5,'Nain','Dwarf','Dwarves','de nains',4),
-(1,6,'Haut elfe','High elf','High Elves','d''hauts elfes',5),
-(1,7,'Gobelin','Goblin','Goblins','de gobelins',6),
-(1,8,'Halfling','Halfling','Halflings','de halflings',6),
-(1,9,'Elfe sylvain','Wood elf','Wood Elves','d''elfes sylvains',5),
-(1,10,'Chaos','Chaos','Chaos','du Chaos',7),
-(1,11,'Nain du Chaos','Chaos dwarf','Chaos Dwarves','de nains du Chaos',7),
-(1,12,'Mort-vivant','Undead','Undead','de mort-vivants',7),
-(1,13,'Nordique','Norse','Norse','de nordiques',6),
-(1,14,'Amazone','Amazon','Amazons','d''amazones',4),
-(1,15,'Homme-lézard','Lizardmen','Lizardmen','d''hommes lézards',6),
-(2,16,'Khemri','Khemri','Khemri','de Khemri',7),
-(2,17,'Nécromantique','Necromantic','Necromantic','nécromantique',7),
-(2,18,'Elfe pro','Elf','Elf Union','d''elfes pro',5),
-(2,19,'Nurgle','Nurgle','Nurgle''s Rotters','des pourris de Nurgle',7),
-(3,20,'Ogre','Ogre','Ogres','d''ogres',7),
-(3,21,'Vampire','Vampire','Vampires','de vampires',7),
-(7,22,'Bas fonds','Underworld','Underworld Denizens','des bas fonds',7),
-(7,23,'Pacte chaotique','Chaos Pact','Chaos Pact','chaotique',7),
-(7,24,'Slann','Slann','Slann','de slanns',5),
-(1,25,'Inconnu','Unknown','Unknown','inconnu',5),
-(10,26,'Skink','skink','skink','skink',5),
-(16,27,'Khorne','Khorne','Daemons of Khorne','Khorne',7),
-(16,28,'Bretonniens','Bretonnian','Bretonnians','bretonnienne',7);
+INSERT INTO `tournament_race` VALUES (1,1,'Orc','Orc','Orc','d\'orcs',6),(1,2,'Skaven','Skaven','Skaven','de skavens',6),(1,3,'Elfe noir','Dark elf','Dark Elves','d\'elfes noirs',5),(1,4,'Humain','Human','Humans','d\'hommes',5),(1,5,'Nain','Dwarf','Dwarves','de nains',4),(1,6,'Haut elfe','High elf','High Elves','d\'hauts elfes',5),(1,7,'Gobelin','Goblin','Goblins','de gobelins',6),(1,8,'Halfling','Halfling','Halflings','de halflings',6),(1,9,'Elfe sylvain','Wood elf','Wood Elves','d\'elfes sylvains',5),(1,10,'Chaos','Chaos','Chaos','du Chaos',7),(1,11,'Nain du Chaos','Chaos dwarf','Chaos Dwarves','de nains du Chaos',7),(1,12,'Mort-vivant','Undead','Undead','de mort-vivants',7),(1,13,'Nordique','Norse','Norse','de nordiques',6),(1,14,'Amazone','Amazon','Amazons','d\'amazones',4),(1,15,'Homme-lézard','Lizardmen','Lizardmen','d\'hommes lézards',6),(2,16,'Khemri','Khemri','Khemri','de Khemri',7),(2,17,'Nécromantique','Necromantic','Necromantic','nécromantique',7),(2,18,'Elfe pro','Elf','Elf Union','d\'elfes pro',5),(2,19,'Nurgle','Nurgle','Nurgle\'s Rotters','des pourris de Nurgle',7),(3,20,'Ogre','Ogre','Ogres','d\'ogres',7),(3,21,'Vampire','Vampire','Vampires','de vampires',7),(7,22,'Bas fonds','Underworld','Underworld Denizens','des bas fonds',7),(7,23,'Pacte chaotique','Chaos Pact','Chaos Renegades','chaotique',7),(7,24,'Slann','Slann','Slann','de slanns',5),(1,25,'Inconnu','Unknown','Unknown','inconnu',5),(10,26,'Skink','skink','skink','skink',5),(16,27,'Khorne','Khorne','Daemons of Khorne','Khorne',7),(16,28,'Bretonniens','Bretonnian','Bretonnians','bretonnienne',7);
 /*!40000 ALTER TABLE `tournament_race` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -241,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-06 21:12:52
+-- Dump completed on 2019-06-06 22:39:59
