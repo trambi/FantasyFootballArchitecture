@@ -19,12 +19,12 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 WORKDIR /var/www/html
 
 RUN symfony new ws 3.4
-ADD https://github.com/trambi/FantasyFootball/archive/v1.18-rc.3.tar.gz v1.18-rc.3.tar.gz
-RUN tar xzf v1.18-rc.3.tar.gz && \
+ADD https://github.com/trambi/FantasyFootball/archive/v1.18-rc.4.tar.gz v1.18-rc.4.tar.gz
+RUN tar xzf v1.18-rc.4.tar.gz && \
 rm -fr ws/src/FantasyFootball && \
-mv FantasyFootball-1.18-rc.3 ws/src/FantasyFootball && \
+mv FantasyFootball-1.18-rc.4 ws/src/FantasyFootball && \
 rm -fr ws/src/AppBundle && \
-rm -f v1.18-rc.3.tar.gz
+rm -f v1.18-rc.4.tar.gz
 
 COPY app_config_config.yml ws/app/config/config.yml
 COPY routing.yml ws/app/config/routing.yml
