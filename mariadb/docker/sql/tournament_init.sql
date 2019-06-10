@@ -125,7 +125,7 @@ CREATE TABLE `tournament_edition` (
 
 LOCK TABLES `tournament_edition` WRITE;
 /*!40000 ALTER TABLE `tournament_edition` DISABLE KEYS */;
-INSERT INTO `tournament_edition` VALUES (1,'2019-06-15','2019-06-16',5,2,1,1,'Rdvbb17',3,'Ghorghor');
+INSERT INTO `tournament_edition` VALUES (1,'2019-06-15','2019-06-16',5,0,1,1,'Rdvbb17',3,'Ghorghor');
 /*!40000 ALTER TABLE `tournament_edition` ENABLE KEYS */;
 UNLOCK TABLES;
 
