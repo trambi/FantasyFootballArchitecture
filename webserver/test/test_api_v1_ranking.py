@@ -65,7 +65,7 @@ def check_rank(rank):
 def test_main_ranking():
     """ Test that ranking/coach/main/<edition> returns an array of coach
     and that first coach is coach_29"""
-    url = helpertest.apirooturl() + "/ranking/coach/main/1"
+    url = helpertest.apirooturl() + "/ranking/coach/main/" + helpertest.edition()
     _test_ranking_elt(url, "coach_29", check_rank)
 
 
@@ -89,35 +89,35 @@ def _test_ranking_element_by_property(url, eltcheck, propkey):
 def test_ranking_by_touchdown():
     """ Test that ranking/coach/td/<edition> returns an array of coach
     and the first one has most td"""
-    url = helpertest.apirooturl() + "/ranking/coach/td/1"
+    url = helpertest.apirooturl() + "/ranking/coach/td/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_rank, "tdFor")
 
 
 def test_ranking_by_casualties():
     """ Test that ranking/coach/casualties/<edition> returns an array of coach
     and the first one has most casualties"""
-    url = helpertest.apirooturl() + "/ranking/coach/casualties/1"
+    url = helpertest.apirooturl() + "/ranking/coach/casualties/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_rank, "casualtiesFor")
 
 
 def test_ranking_by_completions():
     """ Test that ranking/coach/completions/<edition> returns an array of coach
     and the first one has most completions"""
-    url = helpertest.apirooturl() + "/ranking/coach/completions/1"
+    url = helpertest.apirooturl() + "/ranking/coach/completions/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_rank, "completionsFor")
 
 
 def test_ranking_by_fouls():
     """ Test that ranking/coach/fouls/<edition> returns an array of coach
     and the first one has most fouls"""
-    url = helpertest.apirooturl() + "/ranking/coach/fouls/1"
+    url = helpertest.apirooturl() + "/ranking/coach/fouls/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_rank, "foulsFor")
 
 
 def test_ranking_by_comeback():
     """ Test that ranking/coach/comeback/<edition> returns an array of coach
     and the first one has most win ranks"""
-    url = helpertest.apirooturl() + "/ranking/coach/comeback/1"
+    url = helpertest.apirooturl() + "/ranking/coach/comeback/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_rank, "diffRanking")
 
 
@@ -142,7 +142,7 @@ def _test_ranking_element_by_defense(url, eltcheck):
 def test_ranking_by_defense():
     """ Test that ranking/coach/defense/<edition> returns an array of coach
     and the first one has least td against """
-    url = helpertest.apirooturl() + "/ranking/coach/defense/1"
+    url = helpertest.apirooturl() + "/ranking/coach/defense/" + helpertest.edition()
     _test_ranking_element_by_defense(url, check_rank)
 
 
@@ -186,47 +186,47 @@ def check_team_rank(teamrank):
 def test_team_ranking():
     """ Test that ranking/coachTeam/main/<edition> returns an array of coach_team
     and that first coach_team is coach_team_8"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/main/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/main/" + helpertest.edition()
     _test_ranking_elt(url, "coach_team_8", check_team_rank)
 
 
 def test_team_ranking_by_touchdown():
     """ Test that ranking/coachTeam/td/<edition> returns an array
     of team ranking and the first one has most td"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/td/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/td/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_team_rank, "tdFor")
 
 
 def test_team_ranking_by_casualties():
     """ Test that ranking/coachTeam/casualties/<edition> returns an array
     of team ranking and the first one has most casualties"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/casualties/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/casualties/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_team_rank, "casualtiesFor")
 
 
 def test_team_ranking_by_completions():
     """ Test that ranking/coachTeam/completions/<edition> returns an array
     of team ranking and the first one has most completions"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/completions/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/completions/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_team_rank, "completionsFor")
 
 
 def test_team_ranking_by_fouls():
     """ Test that ranking/coachTeam/fouls/<edition> returns an array
     of team ranking and the first one has most fouls"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/fouls/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/fouls/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_team_rank, "foulsFor")
 
 
 def test_team_ranking_by_comeback():
     """ Test that ranking/coachTeam/comeback/<edition> returns an array
     of team ranking and the first one has most win ranks"""
-    url = helpertest.apirooturl() + "/ranking/coachTeam/comeback/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/comeback/" + helpertest.edition()
     _test_ranking_element_by_property(url, check_team_rank, "diffRanking")
 
 
 def test_team_ranking_by_defense():
     """ Test that ranking/coachTeam/defense/<edition> returns an array
     of team ranking and the first one has least td against """
-    url = helpertest.apirooturl() + "/ranking/coachTeam/defense/1"
+    url = helpertest.apirooturl() + "/ranking/coachTeam/defense/" + helpertest.edition()
     _test_ranking_element_by_defense(url, check_team_rank)
