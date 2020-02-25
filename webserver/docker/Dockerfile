@@ -1,9 +1,9 @@
-FROM debian
+FROM debian:10
 
 RUN apt-get update && \
-apt-get install -y apache2 php7.0 php7.0-mysql apache2-mod-php7.0 php7.0-xml php7.0-zip php7.0-mbstring unzip ca-certificates && \
-echo "date.timezone=Europe/Paris" >> /etc/php/7.0/cli/php.ini && \
-echo "date.timezone=Europe/Paris" >> /etc/php/7.0/apache2/php.ini && \
+apt-get install -y apache2 php php-mysql libapache2-mod-php php-xml php-zip php-mbstring unzip ca-certificates && \
+echo "date.timezone=Europe/Paris" >> /etc/php/7.3/cli/php.ini && \
+echo "date.timezone=Europe/Paris" >> /etc/php/7.3/apache2/php.ini && \
 mkdir -p /usr/local/bin
 ADD https://symfony.com/installer /usr/local/bin/symfony
 ADD https://getcomposer.org/installer composer-setup.php
