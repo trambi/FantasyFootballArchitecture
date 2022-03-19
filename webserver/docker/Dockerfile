@@ -1,15 +1,11 @@
 FROM debian:10
-
 RUN apt-get update && \
 apt-get install -y apache2 php php-mysql libapache2-mod-php php-xml php-zip php-mbstring unzip ca-certificates && \
 echo "date.timezone=Europe/Paris" >> /etc/php/7.3/cli/php.ini && \
-echo "date.timezone=Europe/Paris" >> /etc/php/7.3/apache2/php.ini && \
-mkdir -p /usr/local/bin
-ADD https://symfony.com/installer /usr/local/bin/symfony
+echo "date.timezone=Europe/Paris" >> /etc/php/7.3/apache2/php.ini
 ADD https://getcomposer.org/installer composer-setup.php
 
-RUN chmod a+x /usr/local/bin/symfony && \
-php composer-setup.php && \
+RUN php composer-setup.php && \
 php -r "unlink('composer-setup.php');"&& \
 mv composer.phar /usr/local/bin/composer
 
@@ -18,7 +14,7 @@ RUN a2ensite 001-ws.conf && a2dissite 000-default.conf
 
 WORKDIR /var/www/html
 
-RUN symfony new ws 3.4
+RUN composer create-project symfony/framework-standard-edition ws "3.4.*"
 ARG version=1.18
 ADD https://github.com/trambi/FantasyFootball/archive/v${version}.tar.gz ${version}.tar.gz
 RUN tar xzf ${version}.tar.gz && \
@@ -41,6 +37,8 @@ COPY base.html.twig ws/app/Resources/views/base.html.twig
 COPY adapt_param_from_env.bash /root/adapt_param_from_env.bash
 COPY AppKernel.php ws/app/AppKernel.php
 COPY services.yml ws/app/config/services.yml
+COPY web_app.php ws/web/app.php
+COPY web_app_dev.php ws/web/app_dev.php
 RUN chown -R www-data:www-data ws
 
 WORKDIR /var/www/html/ws/src/FantasyFootball
@@ -51,3 +49,4 @@ WORKDIR /var/www/html/ws
 RUN composer dump-autoload
 EXPOSE 80
 CMD ["/bin/bash","/root/adapt_param_from_env.bash"]
+
