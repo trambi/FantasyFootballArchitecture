@@ -7,8 +7,6 @@ services:
     networks:
       - frontend
     restart: on-failure
-    depends_on:
-      - "webserver"
     environment:
       - API_FQDN=${API_FQDN}
   webserver:
@@ -26,7 +24,7 @@ services:
       - DBUSER=${DB_USER}
       - DBPASSWD=${DB_PASSWORD}
   database:
-    image: "jsurf/rpi-mariadb"
+    image: "jsurf/rpi-mariadb:jessie"
     environment:
       - MYSQL_DATABASE=tournament
       - MYSQL_USER=${DB_USER}
