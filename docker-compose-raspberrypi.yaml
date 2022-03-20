@@ -10,7 +10,7 @@ services:
     environment:
       - API_FQDN=${API_FQDN}
   webserver:
-    build: "./webserver/docker"
+    build: "./webserver"
     ports:
       - "8080:80"
     networks:
