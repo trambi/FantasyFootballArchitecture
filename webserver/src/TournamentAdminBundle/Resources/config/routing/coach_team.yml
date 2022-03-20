@@ -1,0 +1,50 @@
+
+_add_coach_team:
+   path:    /add/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:Add }
+   requirements:
+      edition:  \d+
+
+_modify_coach_team:
+   path:    /modify/{edition}/{coachTeamId}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:Modify }
+   requirements:
+      coachTeamId:  \d+
+      edition:  \d+
+
+_delete_coach_team:
+   path:    /delete/{coachTeamId}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:Delete }
+   requirements:
+      coachTeamId:  \d+
+
+_load_coach_team:
+   path:    /load/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:Load }
+   requirements:
+      edition:  \d+
+
+_view_coach_team:
+   path:    /view/{coachTeamId}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:View }
+   requirements:
+      coachTeamId:  \d+
+
+_list_coach_team:
+   path:    /list/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:List }
+   requirements:
+      edition:  \d+
+      
+_ready_coach_team:
+   path:    /ready/{coachTeamId}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:Ready }
+   requirements:
+      coachTeamId:  \d+
+
+
+_delete_coach_team_by_edition:
+   path:    /deleteByEdition/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:DeleteByEdition }
+   requirements:
+      edition:  \d+
