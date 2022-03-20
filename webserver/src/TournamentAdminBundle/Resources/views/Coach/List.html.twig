@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}FantasyFootballTournamentAdminBundle:Coach:List{% endblock %}
+
+{% block body %}
+{% block menuButtons %}
+<a href="{{ path('_add_coach',{'edition':edition} )  }}" class="btn btn-default" role="button"  >Ajouter un coach</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+{% endblock %}
+<h1>Welcome to the Coach:List page</h1>
+<ul>
+{% for coach in coachs %}
+	<li>{{coach.getName()}} - {{coach.getNafNumber()}}
+            {% if coach.getReady() %}<a href="{{ path('_unready_coach',{'coachId':coach.getId()} )  }}" class="btn btn-default" role="button"  >Pr&ecirc;t</a>
+            {% else %}<a href="{{ path('_ready_coach',{'coachId':coach.getId()} )  }}" class="btn btn-default" role="button" >Pas pr&ecirc;t</a>{% endif %} 
+            <a href="{{ path('_view_coach',{'coachId':coach.getId()} )  }}" class="btn btn-default" role="button" >Voir</a>
+            <a href="{{ path('_delete_coach',{'coachId':coach.getId()} )  }}" class="btn btn-default" role="button" >Supprimer</a>
+            <a href="{{ path('_modify_coach',{'coachId':coach.id} )  }}" class="btn btn-default" role="button" >Modifier</a></li>
+{% endfor %}
+</ul>
+{{ block('menuButtons') }}
+{% endblock %}

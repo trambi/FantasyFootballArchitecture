@@ -1,0 +1,11 @@
+fantasy_football_tournament_core_default:
+  resource: "routing/default.yml"
+fantasy_football_tournament_core_coach:
+  resource: "routing/coach.yml"
+fantasy_football_tournament_core_match:
+  resource: "routing/match.yml"
+fantasy_football_tournament_core_coach_team:
+  resource: "routing/coach_team.yml"
+fantasy_football_tournament_core_ranking:
+  resource: "routing/ranking.yml"
+  prefix:   /ranking

@@ -1,0 +1,17 @@
+_coach_ranking:
+   path:    /coach/{edition}/{type}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:Ranking:coach }
+   requirements:
+      edition:  \d+
+
+_coach_team_ranking:
+   path:    /coachteam/{edition}/{type}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:Ranking:coachTeam }
+   requirements:
+      edition:  \d+
+      
+_all_ranking:
+   path:    /all/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:Ranking:all }
+   requirements:
+      edition:  \d+
