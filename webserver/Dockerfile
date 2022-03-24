@@ -1,4 +1,4 @@
-FROM debian:10
+FROM docker.io/library/debian:10
 RUN apt-get update && \
 apt-get install -y apache2 php php-mysql libapache2-mod-php php-xml php-zip php-mbstring unzip ca-certificates && \
 echo "date.timezone=Europe/Paris" >> /etc/php/7.3/cli/php.ini && \

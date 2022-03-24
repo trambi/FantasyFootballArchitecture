@@ -1,4 +1,4 @@
-FROM nginx:1.17
+FROM docker.io/library/nginx:1.17
 RUN apt-get update -y && apt-get install -y git && \
 git clone https://github.com/jmaaanu/FantasyFootballWebView.git /tmp/fantasy && \
 cp -R /tmp/fantasy/NodeServer/public/* /usr/share/nginx/html/ && \
