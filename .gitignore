@@ -1,3 +1,3 @@
 .env
-webserver/src/TournamentCoreBundleMeta/TournamentCoreBundle/nbproject/private/
-webserver/src/TournamentAdminBundleMeta/TournamentAdminBundle/nbproject/private/
+__pycache__
+virtualenv
