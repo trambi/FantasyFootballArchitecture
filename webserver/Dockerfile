@@ -13,9 +13,10 @@ COPY ws.conf /etc/apache2/sites-available/001-ws.conf
 RUN a2ensite 001-ws.conf && a2dissite 000-default.conf && chown -R www-data:www-data /var/log/apache2
 
 WORKDIR /var/www/html
-RUN composer create-project symfony/framework-standard-edition ws "3.4.*" && chown -R www-data:www-data ws && rm -fr ws/src/AppBundle
+RUN composer create-project symfony/framework-standard-edition ws "3.4.*" && chown -R www-data:www-data ws
 WORKDIR /var/www/html/ws
-RUN mkdir web/js && mkdir web/css
+RUN mkdir web/js && mkdir web/css && \
+rm -fr app/config app/AppKernel.php app/Resources ws/src/AppBundle
 COPY --chown=www-data:www-data adapt_param_from_env.bash /tmp/adapt_param_from_env.bash
 COPY --chown=www-data:www-data src/FantasyFootball src/FantasyFootball
 COPY --chown=www-data:www-data composer.json composer.json
@@ -25,7 +26,9 @@ ADD --chown=www-data:www-data https://cdn.datatables.net/v/dt/dt-1.10.18/datatab
 ADD --chown=www-data:www-data https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js web/js/datatables.js
 ADD --chown=www-data:www-data https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js web/js/bootstrap.js
 ADD --chown=www-data:www-data https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css web/css/bootstrap.css
-COPY --chown=www-data:www-data app/* app/
+COPY --chown=www-data:www-data app/AppKernel.php app/AppKernel.php
+COPY --chown=www-data:www-data app/config app/config
+COPY --chown=www-data:www-data app/Resources app/Resources
 COPY --chown=www-data:www-data web/* web/
 RUN composer dump-autoload
 EXPOSE 80
