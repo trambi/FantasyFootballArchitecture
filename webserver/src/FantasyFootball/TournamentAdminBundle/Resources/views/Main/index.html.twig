@@ -22,6 +22,7 @@
 <a href="{{ path('_coach_team_ranking',{'edition':edition,'type':coachTeamranking} )  }}" class="btn btn-info" role="button">Classement équipe ({{coachTeamranking}})</a>
 {% endfor %}
 <a href="{{ path('_all_ranking',{'edition':edition} )  }}" class="btn btn-info" role="button">Synth&egrave;se des classements</a>
+<a href="{{ path('fantasy_football_tournament_admin_backup' )  }}" class="btn btn-primary" role="button"  >Exporter une sauvegarde</a>
 {% if  round == roundNumber %}
 <a href="{{ path('fantasy_football_tournament_admin_naf',{'edition':edition} )  }}" class="btn btn-info" role="button">Fichier XML NAF</a>
 <a href="{{ path('_add_edition') }}" class="btn btn-warning" role="button" >Ajouter une &eacute;dition</a>

@@ -146,4 +146,12 @@ class MainController extends Controller{
          'games' => $games,'dates'=>$dates]);
     }
   }
+
+  public function backupAction()
+  {
+    $content = $this->renderView('@tournament_admin/Main/backup.sql.twig',[]);
+    $response = new Response($content);
+    $response->headers->set('Content-Type','application/sql');
+    return $response;
+  }
 }

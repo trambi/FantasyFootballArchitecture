@@ -15,3 +15,6 @@ fantasy_football_tournament_admin_naf:
     requirements:
         edition:  \d+
         format:  xml|html
+fantasy_football_tournament_admin_backup:
+   path:    /backup
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:Main:backup }
