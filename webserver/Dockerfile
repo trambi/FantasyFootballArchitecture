@@ -18,7 +18,6 @@ WORKDIR /var/www/html/ws
 RUN mkdir web/js && mkdir web/css && \
 rm -fr app/config app/AppKernel.php app/Resources ws/src/AppBundle
 COPY --chown=www-data:www-data adapt_param_from_env.bash /tmp/adapt_param_from_env.bash
-COPY --chown=www-data:www-data src/FantasyFootball src/FantasyFootball
 COPY --chown=www-data:www-data composer.json composer.json
 ADD --chown=www-data:www-data https://code.jquery.com/jquery-3.3.1.js web/js/jquery.js
 ADD --chown=www-data:www-data https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js web/js/popper.js
@@ -30,6 +29,7 @@ COPY --chown=www-data:www-data app/AppKernel.php app/AppKernel.php
 COPY --chown=www-data:www-data app/config app/config
 COPY --chown=www-data:www-data app/Resources app/Resources
 COPY --chown=www-data:www-data web/* web/
+COPY --chown=www-data:www-data src/FantasyFootball src/FantasyFootball
 RUN composer dump-autoload
 EXPOSE 80
 CMD ["/bin/bash","/tmp/adapt_param_from_env.bash"]
