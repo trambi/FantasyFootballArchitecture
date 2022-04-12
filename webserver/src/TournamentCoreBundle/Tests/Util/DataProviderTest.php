@@ -20,12 +20,13 @@ namespace FantasyFootball\TournamentCoreBundle\Tests\Util;
 
 use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
 use FantasyFootball\TournamentCoreBundle\DatabaseConfiguration;
+use PHPUnit\Framework\TestCase;
 
 
-class DataProviderTest extends \PHPUnit_Framework_TestCase {
+class DataProviderTest extends TestCase {
 
     public function testGetCoachsByEdition() {
-        $conf = new DatabaseConfiguration('192.168.33.191', 'test_tournament', 'test_tournament', 'test_tournament');
+        $conf = new DatabaseConfiguration('localhost', 'test_tournament', 'test_tournament', 'test_tournament');
         $data = new DataProvider($conf);
         $coaches = $data->getCoachsByEdition(0);
         $this->assertEquals(0, count($coaches));
@@ -51,7 +52,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetCoachById() {
-        $conf = new DatabaseConfiguration('192.168.33.191', 'test_tournament', 'test_tournament', 'test_tournament');
+        $conf = new DatabaseConfiguration('localhost', 'test_tournament', 'test_tournament', 'test_tournament');
         $data = new DataProvider($conf);
         $coach = $data->getCoachById(1);
 
@@ -66,7 +67,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetCoachTeamById() {
-        $conf = new DatabaseConfiguration('192.168.33.191', 'test_tournament', 'test_tournament', 'test_tournament');
+        $conf = new DatabaseConfiguration('localhost', 'test_tournament', 'test_tournament', 'test_tournament');
         $data = new DataProvider($conf);
         $coachTeam = $data->getCoachTeamById(1);
 
@@ -84,7 +85,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetCoachTeamsByEdition() {
-        $conf = new DatabaseConfiguration('192.168.33.191', 'test_tournament', 'test_tournament', 'test_tournament');
+        $conf = new DatabaseConfiguration('localhost', 'test_tournament', 'test_tournament', 'test_tournament');
         $data = new DataProvider($conf);
         $coachTeams = $data->getCoachTeamsByEdition(0);
         $this->assertEquals(0, count($coachTeams));

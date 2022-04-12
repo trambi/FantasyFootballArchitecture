@@ -21,8 +21,9 @@ namespace FantasyFootball\TournamentCoreBundle\Tests\Util\Rdvbb;
 use FantasyFootball\TournamentCoreBundle\Util\Rdvbb\RankingStrategy14;
 use FantasyFootball\TournamentCoreBundle\Util\Rdvbb\PointsComputor;
 use FantasyFootball\TournamentCoreBundle\Entity\Game;
+use PHPUnit\Framework\TestCase;
 
-class RankingStrategy14Test extends \PHPUnit_Framework_TestCase {
+class RankingStrategy14Test extends TestCase {
 
   public function testComputePoints() {
     $strategy = new RankingStrategy14();

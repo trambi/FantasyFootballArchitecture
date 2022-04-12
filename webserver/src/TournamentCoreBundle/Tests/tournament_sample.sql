@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `tournament_edition` (
 -- Contenu de la table `tournament_edition`
 --
 
-INSERT INTO `tournament_edition` (`id`, `day_1`, `day_2`, `round_number`, `current_round`, `use_finale`, `full_triplette`, `ranking_strategy`, `first_day_round`) VALUES
+INSERT INTO `tournament_edition` (`id`, `day_1`, `day_2`, `round_number`, `current_round`, `use_finale`, `full_triplette`, `ranking_strategy`, `first_day_round`,`organiser`) VALUES
 (1, '2015-06-14', '2015-06-15', 5, 0, 1, 1, 'Rdvbb13', 3,'trambi');
 
 -- --------------------------------------------------------
@@ -212,8 +212,8 @@ INSERT INTO `tournament_race` (`edition`, `id_race`, `nom_fr`, `nom_en`, `nom_en
 (3, 21, 'Vampire', 'Vampire', 'Vampires', 'de vampires', 7),
 (7, 22, 'Bas fonds', 'Underworld', 'Underworld', 'des bas fonds', 7),
 (7, 23, 'Pacte chaotique', 'Chaos Pact', 'Chaos Pact', 'chaotique', 7),
-(7, 24, 'Slann', 'Slann', 'Slann', 'de slanns', 5);
-(16, 25, 'Khorne', 'Khorne', 'Khorne', 'Khorne', 7);
+(7, 24, 'Slann', 'Slann', 'Slann', 'de slanns', 5),
+(16, 25, 'Khorne', 'Khorne', 'Khorne', 'Khorne', 7),
 (16, 26, 'Bretonniens', 'Bretonnians', 'Bretonnians', 'bretonniens', 7);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

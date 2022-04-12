@@ -21,8 +21,9 @@ namespace FantasyFootball\TournamentCoreBundle\Tests\Util\LuteceCup;
 use FantasyFootball\TournamentCoreBundle\Util\LuteceCup\RankingStrategyLutece16;
 use FantasyFootball\TournamentCoreBundle\Util\Rdvbb\PointsComputor;
 use FantasyFootball\TournamentCoreBundle\Entity\Game;
+use PHPUnit\Framework\TestCase;
 
-class RankingStrategy2017Test extends \PHPUnit_Framework_TestCase {
+class RankingStrategy2017Test extends TestCase {
 
   public function testComputePoints() {
     $strategy = new RankingStrategyLutece16();

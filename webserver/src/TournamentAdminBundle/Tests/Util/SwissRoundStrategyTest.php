@@ -19,8 +19,9 @@
 namespace FantasyFootball\TournamentAdminBundle\Tests\Util;
 
 use FantasyFootball\TournamentAdminBundle\Util\SwissRoundStrategy;
+use PHPUnit\Framework\TestCase;
 
-class SwissRoundStrategyTest extends \PHPUnit_Framework_TestCase {
+class SwissRoundStrategyTest extends TestCase {
     /*
      * @param type $paired Liste d'appariements déjà effectués
      * @param type $toPaired Liste des restants à apparier triée

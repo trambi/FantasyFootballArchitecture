@@ -20,8 +20,9 @@ namespace FantasyFootball\TournamentCoreBundle\Tests\Util\Rdvbb;
 
 use FantasyFootball\TournamentCoreBundle\Util\Rdvbb\RankingStrategy2To3;
 use FantasyFootball\TournamentCoreBundle\Entity\Game;
+use PHPUnit\Framework\TestCase;
 
-class RankingStrategy2To3Test extends \PHPUnit_Framework_TestCase
+class RankingStrategy2To3Test extends TestCase
 {
 	public function testComputePoints(){
         $strategy = new RankingStrategy2To3();
