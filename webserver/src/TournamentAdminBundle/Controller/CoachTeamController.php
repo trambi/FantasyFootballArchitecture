@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FantasyFootball\TournamentCoreBundle\Entity\Coach;
 use FantasyFootball\TournamentCoreBundle\Entity\CoachTeam;
 use FantasyFootball\TournamentCoreBundle\Entity\RaceRepository;
+use FantasyFootball\TournamentAdminBundle\Util\Csv;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -113,27 +114,7 @@ class CoachTeamController extends Controller{
       ['coachTeam'=>$coachTeam,'form' => $form->createView(),'edition'=>$edition]);
   }
 
-  protected function convert($filename, $delimiter = ','){
-    if( !file_exists($filename) || !is_readable($filename) ) {
-        return FALSE;
-    }
-    $header = NULL;
-    $data = array();
-    
-    if (($handle = fopen($filename, 'r')) !== FALSE) {
-      while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
-        if(!$header) {
-          $header = $row;
-        } else {
-          $data[] = array_combine($header, $row);
-        }
-      }
-      fclose($handle);
-    }
-    return $data;
-  }        
-
-  public function DeleteByEditionAction(Request $request, $edition){
+   public function DeleteByEditionAction(Request $request, $edition){
     $em = $this->getDoctrine()->getManager();
     $count = $em->getRepository('FantasyFootballTournamentCoreBundle:Game')->countGamesByEdition($edition);
 
@@ -182,7 +163,7 @@ class CoachTeamController extends Controller{
         $file->move('./', $filename);
         // Getting the CSV from filesystem
         $fileName = './'.$filename;
-        $dataArray = $this->convert($fileName, ',');
+        $dataArray = Csv::filenameToArray($fileName, ',');
         
         $defaultRace = $em->getRepository('FantasyFootballTournamentCoreBundle:Race')->findOneById(1);
         foreach($dataArray as $row){
