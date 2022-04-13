@@ -1,9 +1,3 @@
--- MySQL dump 10.17  Distrib 10.3.14-MariaDB, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: tournament
--- ------------------------------------------------------
--- Server version	10.3.14-MariaDB-1:10.3.14+maria~bionic
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -80,8 +74,14 @@ CREATE TABLE `tournament_coach` (
   PRIMARY KEY (`id`),
   KEY `IDX_FE0FFDD5514FA7AD` (`id_race`),
   KEY `IDX_FE0FFDD5E25543D4` (`id_coach_team`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci PACK_KEYS=0;
+) ENGINE=MyISAM AUTO_INCREMENT={{ coaches|length +1 }} DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `tournament_coach` VALUES 
+{% for coach in coaches %}
+({{coach.Id}},"{{coach.TeamName}}","{{coach.Name}}",{{coach.Race.Id}},"{{coach.Email}}",{{coach.Points}},{{coach.OpponentsPoints}},{{coach.NetTd}},{{coach.Casualties}},{{coach.Edition}},{{coach.NafNumber}},{{coach.CoachTeam.Id}},{% if coach.Ready %} 1 {% else %} 0 {% endif %},NULL,NULL,NULL,NULL,NULL)
+{% if loop.last %};{% else %},{% endif %}
+{% endfor %}
 
 --
 -- Table structure for table `tournament_coach_team`
@@ -94,8 +94,14 @@ CREATE TABLE `tournament_coach_team` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci PACK_KEYS=0;
+) ENGINE=MyISAM AUTO_INCREMENT={{ coachTeams|length +1 }} DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `tournament_coach_team` VALUES 
+{% for coachTeam in coachTeams %}
+({{coachTeam.Id}},"{{coachTeam.Name}}")
+{% if loop.last %};{% else %},{% endif %}
+{% endfor %}
 
 --
 -- Table structure for table `tournament_edition`
@@ -116,7 +122,7 @@ CREATE TABLE `tournament_edition` (
   `first_day_round` int(11) NOT NULL DEFAULT 3,
   `organiser` varchar(65) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT={{ editions|length + 1}} DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +131,12 @@ CREATE TABLE `tournament_edition` (
 
 LOCK TABLES `tournament_edition` WRITE;
 /*!40000 ALTER TABLE `tournament_edition` DISABLE KEYS */;
-INSERT INTO `tournament_edition` VALUES (18,'2022-05-08','2022-05-09',5,0,1,1,'Rdvbb18',3,'Sebotouno');
+INSERT INTO `tournament_edition` VALUES 
+{% for edition in editions %}
+({{edition.Id}},{{edition.Day1}},{{edition.Day2}},{{edition.RoundNumber}},{{edition.CurrentRound}},{{edition.UseFinale}},{{edition.FullTriplette}},"{{edition.RankingStrategyName}}",{{edition.FirstDayRound}},"{{edition.Organiser}}")
+{% if loop.last %};{% else %},{% endif %}
+{% endfor %}
+
 /*!40000 ALTER TABLE `tournament_edition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,38 +180,13 @@ CREATE TABLE `tournament_match` (
 
 LOCK TABLES `tournament_match` WRITE;
 /*!40000 ALTER TABLE `tournament_match` DISABLE KEYS */;
+INSERT INTO `tournament_match` VALUES 
+{% for game in games %}
+({{game.Id}},{{game.Coach1.Id}},{{game.Coach2.Id}},{{game.Td1}},{{game.Td2}},{{game.Round}},{{game.Points1|default('NULL')}},{{game.Points2|default('NULL')}},{{game.Casualties1|default('NULL')}},{{game.Casualties2|default('NULL')}},{{game.Completions1|default('NULL')}},{{game.Completions2|default('NULL')}},{{game.Fouls1|default('NULL')}},{{game.Fouls2|default('NULL')}},"{{game.Special1}}","{{game.Special2}}",{% if game.Finale %}1{% else %}0{% endif %},{{game.Edition}},"{{game.Status}}",{{game.TableNumber}})
+{% if loop.last %};{% else %},{% endif %}
+{% endfor %}
+
 /*!40000 ALTER TABLE `tournament_match` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tournament_precoach`
---
-
-DROP TABLE IF EXISTS `tournament_precoach`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tournament_precoach` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(65) COLLATE utf8_unicode_ci NOT NULL,
-  `id_race` int(11) NOT NULL,
-  `email` varchar(129) COLLATE utf8_unicode_ci NOT NULL,
-  `edition` int(11) NOT NULL,
-  `naf_number` int(11) NOT NULL,
-  `lang` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `team_name` varchar(129) COLLATE utf8_unicode_ci NOT NULL,
-  `id_coach_team` int(11) NOT NULL,
-  `contact` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tournament_precoach`
---
-
-LOCK TABLES `tournament_precoach` WRITE;
-/*!40000 ALTER TABLE `tournament_precoach` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tournament_precoach` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -219,7 +205,7 @@ CREATE TABLE `tournament_race` (
   `nom_fr_2` varchar(33) COLLATE utf8_unicode_ci NOT NULL,
   `reroll` smallint(6) NOT NULL,
   PRIMARY KEY (`id_race`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT={{races|length + 1}} DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,18 +213,10 @@ CREATE TABLE `tournament_race` (
 --
 
 LOCK TABLES `tournament_race` WRITE;
-/*!40000 ALTER TABLE `tournament_race` DISABLE KEYS */;
-INSERT INTO `tournament_race` VALUES (1,1,'Orc','Orc','Orc','d\'orcs',6),(1,2,'Skaven','Skaven','Skaven','de skavens',6),(1,3,'Elfe noir','Dark elf','Dark Elves','d\'elfes noirs',5),(1,4,'Humain','Human','Humans','d\'hommes',5),(1,5,'Nain','Dwarf','Dwarves','de nains',4),(1,6,'Haut elfe','High elf','High Elves','d\'hauts elfes',5),(1,7,'Gobelin','Goblin','Goblins','de gobelins',6),(1,8,'Halfling','Halfling','Halflings','de halflings',6),(1,9,'Elfe sylvain','Wood elf','Wood Elves','d\'elfes sylvains',5),(1,10,'Elus du Chaos','Chaos Chosen','Chaos','du Chaos',7),(1,11,'Nain du Chaos','Chaos dwarf','Chaos Dwarves','de nains du Chaos',7),(1,12,'Mort-vivant','Undead','Undead','de mort-vivants',7),(1,13,'Nordique','Norse','Norse','de nordiques',6),(1,14,'Amazone','Amazon','Amazons','d\'amazones',4),(1,15,'Homme-lézard','Lizardmen','Lizardmen','d\'hommes lézards',6),(2,16,'Khemri','Khemri','Khemri','de Khemri',7),(2,17,'Horreurs Nécromantiques','Necromantic','Necromantic','nécromantique',7),(2,18,'Elfe pro','Elf','Elf Union','d\'elfes pro',5),(2,19,'Nurgle','Nurgle','Nurgle\'s Rotters','des pourris de Nurgle',7),(3,20,'Ogre','Ogre','Ogres','d\'ogres',7),(3,21,'Vampire','Vampire','Vampires','de vampires',7),(7,22,'Bas fonds','Underworld','Underworld Denizens','des bas fonds',7),(7,23,'Pacte chaotique','Chaos Pact','Chaos Renegades','chaotique',7),(7,24,'Slann','Slann','Slann','de slanns',5),(1,25,'Inconnu','Unknown','Unknown','inconnu',5),(10,26,'Skink','skink','skink','skink',5),(16,27,'Khorne','Khorne','Daemons of Khorne','Khorne',7),(16,28,'Bretonniens','Bretonnian','Bretonnians','bretonnienne',7),(18,29,'Vieux Monde','Old World','Alliance of Old World','Alliance du vieux monde',7),(18,30,'Noblesse impériale','Imperial Nobility','of imperial nobility','de la noblesse impériale',7),(18,31,'Snotling','Snotling','of snotlings','de  snotlings',6);
+INSERT INTO `tournament_race` VALUES 
+{% for race in races %}
+({{race.edition}},{{race.id}},"{{race.FrenchName}}","{{race.FrenchName2}}","{{race.EnglishName}}","{{race.EnglishName2}}",{{race.reroll}})
+{% if loop.last %};{% else %},{% endif %}
+{% endfor %}
 /*!40000 ALTER TABLE `tournament_race` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-06 22:39:59

@@ -148,8 +148,25 @@ class MainController extends Controller{
   }
 
   public function backupAction()
-  {
-    $content = $this->renderView('@tournament_admin/Main/backup.sql.twig',[]);
+  { 
+    $em = $this->getDoctrine()->getManager();
+    $races = $em->getRepository('FantasyFootballTournamentCoreBundle:Race')
+                  ->findAll();
+    $editions = $em->getRepository('FantasyFootballTournamentCoreBundle:Edition')
+                    ->findAll();
+    $coaches = $em->getRepository('FantasyFootballTournamentCoreBundle:Coach')
+                    ->findAll();
+    $coachTeams = $em->getRepository('FantasyFootballTournamentCoreBundle:CoachTeam')
+                    ->findAll();
+    $games = $em->getRepository('FantasyFootballTournamentCoreBundle:Game')
+                    ->findAll();
+    $content = $this->renderView('@tournament_admin/Main/backup.sql.twig',[
+      'races'=>$races,
+      'editions'=>$editions,
+      'coaches'=>$coaches,
+      'coachTeams'=>$coachTeams,
+      'games'=>$games
+    ]);
     $response = new Response($content);
     $response->headers->set('Content-Type','application/sql');
     return $response;
