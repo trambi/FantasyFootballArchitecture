@@ -23,12 +23,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
 use FantasyFootball\TournamentAdminBundle\Util\PairingContextFabric;
 use FantasyFootball\TournamentAdminBundle\Util\SwissRoundStrategy;
+use FantasyFootball\TournamentCoreBundle\Entity\Edition;
 
 use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller{
 
-  protected function _indexActionNotStarted(\FantasyFootball\TournamentCoreBundle\Entity\Edition $edition) {
+  protected function _indexActionNotStarted(Edition $edition) {
     $editionId = $edition->getId();
     $em = $this->getDoctrine()->getManager();
     $coachs = $em->getRepository('FantasyFootballTournamentCoreBundle:Coach')->findByEdition($editionId,array('name'=>'ASC'));
@@ -42,7 +43,7 @@ class MainController extends Controller{
       'enableDeleteCoachs' => ($count == 0)]);
   }
 
-  protected function _indexActionStarted(\FantasyFootball\TournamentCoreBundle\Entity\Edition $edition, $round) {
+  protected function _indexActionStarted(Edition $edition, $round) {
     $editionId = $edition->getId();
     $conf = $this->get('fantasy_football_core_db_conf');
     $data = new DataProvider($conf);
@@ -78,9 +79,7 @@ class MainController extends Controller{
     return $render;
   }
 
-  public function nextRoundAction($edition){
-    $logger = $this->get('logger');
-    
+  public function nextRoundAction(LoggerInterface $logger,$edition){
     $em = $this->getDoctrine()->getManager();
     $editionObj = $em->getRepository('FantasyFootballTournamentCoreBundle:Edition')->find($edition);
     $round = $editionObj->getCurrentRound();
@@ -107,7 +106,7 @@ class MainController extends Controller{
     return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
   }
 
-  protected function createDates($edition)
+  protected function createDates(Edition $edition)
   {
     $dates = array();
     $firstDayRound = $edition->getFirstDayRound();
