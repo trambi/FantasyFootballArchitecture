@@ -20,6 +20,7 @@ namespace FantasyFootball\TournamentAdminBundle\Tests\Services;
 
 use FantasyFootball\TournamentAdminBundle\Services\Csv;
 use FantasyFootball\TournamentCoreBundle\Util\{CoachForTest,SquadForTest};
+use FantasyFootball\TournamentCoreBundle\Entity\{Coach,CoachTeam,Game};
 use PHPUnit\Framework\TestCase;
 
 class CsvTest extends TestCase {
@@ -102,4 +103,58 @@ class CsvTest extends TestCase {
         $this->assertCount(2, $result);
         $this->assertEquals($expected,$result);
     }
+
+    public function testGamesToHeadersAndRowsHappyPath() {
+        $expected = [
+            'headers' => [
+                'round','table','finale',
+                'coach_team_1','coach_1_name','points_1',
+                'td_1','casualties_1','completions_1','fouls_1','special_1',
+                'coach_team_2','coach_2_name','points_2',
+                'td_2','casualties_2','completions_2','fouls_2','special_2'],
+            'rows' => [
+                [
+                    1,2,false,
+                    'squad1','coach1',0,
+                    1,2,3,4,5,
+                    'squad2','coach2',6,
+                    7,8,9,10,11
+                ]
+            ]
+        ];
+        
+        $squad1 = (new CoachTeam())
+            ->setName('squad1');
+        $squad2 = (new CoachTeam())
+            ->setName('squad2');
+        $coach1 = (new Coach())
+            ->setName('coach1')
+            ->setCoachTeam($squad1);
+        $coach2 = (new Coach())
+            ->setName('coach2')
+            ->setCoachTeam($squad2);
+        $game1 = new Game();
+        $game1->setRound(1)
+            ->setTableNumber(2)
+            ->setFinale(false)
+            ->setPoints1(0)
+            ->setTd1(1)
+            ->setCasualties1(2)
+            ->setCompletions1(3)
+            ->setFouls1(4)
+            ->setSpecial1(5)
+            ->setPoints2(6)
+            ->setTd2(7)
+            ->setCasualties2(8)
+            ->setCompletions2(9)
+            ->setFouls2(10)
+            ->setSpecial2(11)
+            ->setCoach1($coach1)
+            ->setCoach2($coach2);  
+        $games = [$game1];
+        $result = Csv::gamesToHeadersAndRows($games);
+        $this->assertCount(2, $result);
+        $this->assertEquals($expected,$result);
+    }
+
 }

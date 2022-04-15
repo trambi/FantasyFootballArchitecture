@@ -19,6 +19,7 @@
 namespace FantasyFootball\TournamentAdminBundle\Services;
 
 use FantasyFootball\TournamentCoreBundle\Utils\{ICoach,ISquad};
+use FantasyFootball\TournamentCoreBundle\Entity\Game;
 
 class Csv{
 
@@ -49,6 +50,39 @@ class Csv{
       'headers' => create_headers_for_squad($maxMembers),
       'rows' => create_rows_for_squad($squads,$maxMembers)
     ];
+  }
+
+  public static function gamesToHeadersAndRows(array $games): array{
+    return [
+      'headers' => self::createHeadersForGame(),
+      'rows' => self::createRowsFromGames($games)
+    ];
+  }
+
+  protected static function createHeadersForGame(): array {
+    return [
+      'round','table','finale',
+      'coach_team_1','coach_1_name','points_1',
+      'td_1','casualties_1','completions_1','fouls_1','special_1',
+      'coach_team_2','coach_2_name','points_2',
+      'td_2','casualties_2','completions_2','fouls_2','special_2'
+    ];
+  }
+
+  protected static function createRowsFromGames(array $games): array{
+    return array_map(function (Game $game){
+      $coach1 = $game->getCoach1();
+      $coach2 = $game->getCoach2();
+      return [
+        $game->getRound(),$game->getTableNumber(),$game->getFinale(),
+        $coach1->getCoachTeam()->getName(),$coach1->getName(),$game->getPoints1(),
+        $game->getTd1(),$game->getCasualties1(),$game->getCompletions1(),
+        $game->getFouls1(),$game->getSpecial1(),
+        $coach2->getCoachTeam()->getName(),$coach2->getName(),$game->getPoints2(),
+        $game->getTd2(),$game->getCasualties2(),$game->getCompletions2(),
+        $game->getFouls2(),$game->getSpecial2(),
+      ];
+    },$games);  
   }
 }
 
