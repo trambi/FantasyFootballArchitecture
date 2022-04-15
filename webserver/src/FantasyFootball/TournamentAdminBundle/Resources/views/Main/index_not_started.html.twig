@@ -5,26 +5,25 @@
 {% block body %}
 <h1>Administration &Eacute;dition {{edition}} - D&eacute;but</h1>
 {% block menuButtons %}
-<a href="{{ path('_add_coach',{'edition':edition} )  }}" class="btn btn-primary" role="button" >Ajouter un coach</a>
-<a href="{{ path('_ready_coachs_by_edition',{'edition':edition} )  }}" class="btn btn-primary" role="button" >Déclarer tous les coachs présents</a>
-<a href="{{ path('_unready_coachs_by_edition',{'edition':edition} )  }}" class="btn btn-primary" role="button" >Déclarer tous les coachs absents</a>
-<a href="{{ path('_add_coach_team',{'edition':edition} )  }}" class="btn btn-primary" role="button" >Ajouter une triplette</a>
-<a href="{{ path('_load_coach_team',{'edition':edition} ) }}" class="btn btn-primary" role="button" >Charger les participants</a>
-<a href="{{ path('_export_coach_team_by_edition',{'edition':edition} ) }}" class="btn btn-primary" role="button" >Exporter les participants</a>
-{% if enableDeleteCoachs %}
-<a href="{{ path('_delete_coach_team_by_edition',{'edition':edition} ) }}" class="btn btn-danger" role="button" >Supprimer les coachs</a>
-{% endif %}
+<a href="{{ path('_load_coach_team',{'edition':edition} ) }}" class="btn btn-primary btn-sm" role="button" >Charger les participants</a>
+<a href="{{ path('_add_coach_team',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button" >Ajouter une triplette</a>
+<a href="{{ path('_add_coach',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button" >Ajouter un coach</a>
+<a href="{{ path('_ready_coachs_by_edition',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button" >Déclarer tous les coachs présents</a>
+<a href="{{ path('_unready_coachs_by_edition',{'edition':edition} )  }}" class="btn btn-secondary btn-sm" role="button" >Déclarer tous les coachs absents</a>
 {% if currentRound %}
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition,'round':1} )  }}"class="btn btn-primary" role="button"  >Journ&eacute;e 1</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition,'round':1} )  }}"class="btn btn-primary btn-sm" role="button"  >Journ&eacute;e 1</a>
 {% else %}
-<a href="{{ path('fantasy_football_tournament_admin_next',{'edition':edition} )  }}" class="btn btn-primary" role="button"  >Générer la prochaine ronde</a>
+<a href="{{ path('fantasy_football_tournament_admin_next',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button"  >Lancer le tournoi</a>
 {% endif %}
-<a href="{{ path('_modify_edition',{'edition':edition} ) }}" class="btn btn-warning" role="button" >Modifier l'&eacute;dition</a>
-<a href="{{ path('fantasy_football_tournament_admin_backup' )  }}" class="btn btn-primary" role="button"  >Exporter une sauvegarde</a>
+{% if enableDeleteCoachs %}
+<a href="{{ path('_delete_coach_team_by_edition',{'edition':edition} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer les coachs</a>
+{% endif %}
+<a href="{{ path('_modify_edition',{'edition':edition} ) }}" class="btn btn-warning btn-sm" role="button" >Modifier l'&eacute;dition</a>
+<a href="{{ path('_export_coach_team_by_edition',{'edition':edition} ) }}" class="btn btn-success btn-sm" role="button" >Exporter les participants</a>
+<a href="{{ path('fantasy_football_tournament_admin_backup')  }}" class="btn btn-success btn-sm" role="button"  >Exporter une sauvegarde</a>
 {% endblock %}
 {% if coachs %}
-<span class="badge badge-info">{{ coachs|length }}</span>
-<h2>Coachs</h2>
+<h2>Coachs<span class="badge bg-info rounded-pill">{{ coachs|length }}</span></h2>
 <table id="coach" class="table table-striped table-condensed">
     <thead>
         <tr>
@@ -61,8 +60,7 @@
 {{ block('menuButtons') }}
 {% endif %}
 {% if coachTeams %}
-<span class="badge badge-info">{{ coachTeams|length }}</span>
-<h2>Triplettes</h2>
+<h2>Triplettes<span class="badge bg-info rounded-pill">{{ coachTeams|length }}</span></h2>
 <table id="coachTeam" class="table table-striped table-condensed">
     <thead>
         <tr>
