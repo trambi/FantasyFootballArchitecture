@@ -1,0 +1,17 @@
+coach_team_name,email,coach_1_name,coach_1_naf,coach_1_race,coach_2_name,coach_2_naf,coach_2_race,coach_3_name,coach_3_naf,coach_3_race
+team A,a@team.org,coach A1,1001,orc,coach A2,1002,amazon,coach A3,1003,undead
+team B,b@team.org,coach B1,2001,skaven,coach B2,2002,human,coach B3,2003,goblin
+team C,c@team.org,coach C1,3001,wood elf,coach C2,3002,dwarf,coach C3,3003,chaos dwarf
+team D,d@team.org,coach D1,4001,wood elf,coach D2,4002,dwarf,coach D3,4003,chaos dwarf
+team E,e@team.org,coach E1,5001,wood elf,coach E2,5002,dwarf,coach E3,5003,chaos dwarf
+team F,f@team.org,coach F1,6001,wood elf,coach F2,6002,dwarf,coach F3,6003,chaos dwarf
+team G,g@team.org,coach G1,7001,wood elf,coach G2,7002,dwarf,coach G3,7003,chaos dwarf
+team H,h@team.org,coach H1,8001,wood elf,coach H2,8002,dwarf,coach H3,8003,chaos dwarf
+team I,i@team.org,coach I1,9001,orc,coach I2,9002,amazon,coach I3,9003,undead
+team J,j@team.org,coach J1,10001,skaven,coach J2,10002,human,coach J3,10003,goblin
+team K,k@team.org,coach K1,11001,wood elf,coach K2,11002,dwarf,coach K3,11003,chaos dwarf
+team L,l@team.org,coach L1,12001,wood elf,coach L2,12002,dwarf,coach L3,12003,chaos dwarf
+team M,m@team.org,coach M1,13001,wood elf,coach M2,13002,dwarf,coach M3,13003,chaos dwarf
+team N,n@team.org,coach N1,14001,wood elf,coach N2,14002,dwarf,coach N3,14003,chaos dwarf
+team O,o@team.org,coach O1,15001,wood elf,coach O2,15002,dwarf,coach O3,15003,chaos dwarf
+team P,p@team.org,coach P1,16001,wood elf,coach P2,16002,dwarf,coach P3,16003,chaos dwarf
