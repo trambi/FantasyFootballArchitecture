@@ -108,9 +108,9 @@ class CsvTest extends TestCase {
         $expected = [
             'headers' => [
                 'round','table','finale',
-                'coach_team_1','coach_1_name','points_1',
+                'coach_team_1','coach_name_1','points_1',
                 'td_1','casualties_1','completions_1','fouls_1','special_1',
-                'coach_team_2','coach_2_name','points_2',
+                'coach_team_2','coach_name_1','points_2',
                 'td_2','casualties_2','completions_2','fouls_2','special_2'],
             'rows' => [
                 [
