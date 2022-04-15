@@ -52,23 +52,43 @@ class Csv{
   protected static function getMaxNumberMembers($squads){
     return array_reduce($squads,'self::maxMembers',0);
   }
-
+  
   public static function squadsToHeadersAndRows(array $squads): array{
     $maxMembers = self::getMaxNumberMembers($squads);
     return [
-      'headers' => create_headers_for_squad($maxMembers),
-      'rows' => create_rows_for_squad($squads,$maxMembers)
+      'headers' => self::squadHeaders($maxMembers),
+      'rows' => array_map('self::rowFromSquad',$squads)
     ];
+  }
+
+  protected static function squadHeaders(int $maxMembers){
+    $headers = ['coach_team_name','email'];
+    foreach (range(1,$maxMembers) as $i){
+      $headers[] = "coach_${i}_name";
+      $headers[] = "coach_${i}_naf";
+      $headers[] = "coach_${i}_race"; 
+    }
+    return $headers;
+  }
+
+  protected static function rowFromSquad($squad){
+    $row = [$squad->getName(),$squad->getEmail()];
+    foreach($squad->getMembers() as $coach){
+      $row[] = $coach->getName();
+      $row[] = $coach->getNafNumber();
+      $row[] = $coach->getRaceName();
+    }
+    return $row;
   }
 
   public static function gamesToHeadersAndRows(array $games): array{
     return [
-      'headers' => self::createHeadersForGame(),
-      'rows' => self::createRowsFromGames($games)
+      'headers' => self::gameHeaders(),
+      'rows' => array_map('self::rowFromGame',$games)
     ];
   }
 
-  protected static function createHeadersForGame(): array {
+  protected static function gameHeaders(): array {
     return [
       'round','table','finale',
       'coach_team_1','coach_1_name','points_1',
@@ -78,42 +98,17 @@ class Csv{
     ];
   }
 
-  protected static function createRowsFromGames(array $games): array{
-    return array_map(function (Game $game){
-      $coach1 = $game->getCoach1();
-      $coach2 = $game->getCoach2();
-      return [
-        $game->getRound(),$game->getTableNumber(),$game->getFinale(),
-        $coach1->getCoachTeam()->getName(),$coach1->getName(),$game->getPoints1(),
-        $game->getTd1(),$game->getCasualties1(),$game->getCompletions1(),
-        $game->getFouls1(),$game->getSpecial1(),
-        $coach2->getCoachTeam()->getName(),$coach2->getName(),$game->getPoints2(),
-        $game->getTd2(),$game->getCasualties2(),$game->getCompletions2(),
-        $game->getFouls2(),$game->getSpecial2(),
-      ];
-    },$games);  
+  protected static function rowFromGame(Game $game): array{
+    $coach1 = $game->getCoach1();
+    $coach2 = $game->getCoach2();
+    return [
+      $game->getRound(),$game->getTableNumber(),$game->getFinale(),
+      $coach1->getCoachTeam()->getName(),$coach1->getName(),$game->getPoints1(),
+      $game->getTd1(),$game->getCasualties1(),$game->getCompletions1(),
+      $game->getFouls1(),$game->getSpecial1(),
+      $coach2->getCoachTeam()->getName(),$coach2->getName(),$game->getPoints2(),
+      $game->getTd2(),$game->getCasualties2(),$game->getCompletions2(),
+      $game->getFouls2(),$game->getSpecial2(),
+    ];
   }
 }
-
-function create_headers_for_squad(int $maxMembers){
-  $headers = ['coach_team_name','email'];
-  foreach (range(1,$maxMembers) as $i){
-    $headers[] = "coach_${i}_name";
-    $headers[] = "coach_${i}_naf";
-    $headers[] = "coach_${i}_race"; 
-  }
-  return $headers;
-}
-
-function create_rows_for_squad(array $squads,int $maxMembers){
-  return array_map(function ($squad){
-    $row = [$squad->getName(),$squad->getEmail()];
-    foreach($squad->getMembers() as $coach){
-      $row[] = $coach->getName();
-      $row[] = $coach->getNafNumber();
-      $row[] = $coach->getRaceName();
-    }
-    return $row;
-  },$squads);
-}
-
