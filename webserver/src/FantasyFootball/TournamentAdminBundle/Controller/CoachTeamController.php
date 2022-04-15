@@ -17,25 +17,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace FantasyFootball\TournamentAdminBundle\Controller;
-
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
-use FantasyFootball\TournamentAdminBundle\Util\DataUpdater;
-use Symfony\Component\HttpFoundation\Request;
-use FantasyFootball\TournamentCoreBundle\Entity\Coach;
-use FantasyFootball\TournamentCoreBundle\Entity\CoachTeam;
-use FantasyFootball\TournamentCoreBundle\Entity\RaceRepository;
-use FantasyFootball\TournamentAdminBundle\Util\Csv;
-
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use FantasyFootball\TournamentAdminBundle\Form\CoachTeamType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Doctrine\ORM\NoResultException;
+
+use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
+use FantasyFootball\TournamentCoreBundle\Entity\Coach;
+use FantasyFootball\TournamentCoreBundle\Entity\CoachTeam;
+use FantasyFootball\TournamentCoreBundle\Entity\RaceRepository;
+
+use FantasyFootball\TournamentAdminBundle\Util\DataUpdater;
+use FantasyFootball\TournamentAdminBundle\Form\CoachTeamType;
+
+use FantasyFootball\TournamentAdminBundle\Services\Csv;
+
 
 
 class CoachTeamController extends Controller{
@@ -211,7 +214,6 @@ class CoachTeamController extends Controller{
   }
 
   public function viewAction($coachTeamId){
-    
     $conf = $this->get('fantasy_football_core_db_conf');
     $data = new DataUpdater($conf);
     //$coachTeam = $data->getCoachTeamById($coachTeamId);
@@ -249,6 +251,17 @@ class CoachTeamController extends Controller{
     }
     $em->flush();
     return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+  }
+
+  public function ExportByEditionAction(LoggerInterface $logger,int $edition)
+  {
+    $coachTeams = $this->getDoctrine()->getRepository('FantasyFootballTournamentCoreBundle:CoachTeam')->findByEditionJoined($edition);
+    $data = Csv::squadsToHeadersAndRows($coachTeams);
+    $content = $this->renderView('@tournament_admin/Main/export.csv.twig',
+      $data);
+    $response = new Response($content);
+    $response->headers->set('Content-Type','text/csv');
+    return $response;
   }
   
 }

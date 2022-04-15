@@ -48,3 +48,9 @@ _delete_coach_team_by_edition:
    defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:DeleteByEdition }
    requirements:
       edition:  \d+
+
+_export_coach_team_by_edition:
+   path:    /exportByEdition/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:CoachTeam:ExportByEdition }
+   requirements:
+      edition:  \d+

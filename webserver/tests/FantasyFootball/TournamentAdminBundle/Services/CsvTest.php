@@ -16,9 +16,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-namespace FantasyFootball\TournamentAdminBundle\Tests\Util;
+namespace FantasyFootball\TournamentAdminBundle\Tests\Services;
 
-use FantasyFootball\TournamentAdminBundle\Util\Csv;
+use FantasyFootball\TournamentAdminBundle\Services\Csv;
+use FantasyFootball\TournamentCoreBundle\Util\{CoachForTest,SquadForTest};
 use PHPUnit\Framework\TestCase;
 
 class CsvTest extends TestCase {
@@ -29,7 +30,7 @@ class CsvTest extends TestCase {
      * @return liste d'appariement satisfaisant les appariements interdits
      */
 
-    public function testConvertHappyPath() {
+    public function testFilenameToArrayHappyPath() {
         $expected = [
             [
                 'coach_team_name'=>'crazy team',
@@ -64,5 +65,41 @@ class CsvTest extends TestCase {
         $this->assertCount(2, $result);
         $this->assertEquals($expected,$result);
         
+    }
+
+    public function testSquadsToHeadersAndRowsHappyPath() {
+        $expected = [
+            'headers' => [
+                'coach_team_name','email',
+                'coach_1_name','coach_1_naf','coach_1_race',
+                'coach_2_name','coach_2_naf','coach_2_race',
+                'coach_3_name','coach_3_naf','coach_3_race'],
+            'rows' => [
+                [ 
+                    'team a', 'a@team.org',
+                    'coach 1', 1001,'race1',
+                    'coach 2', 1002,'race2',
+                    'coach 3', 1003,'race3'
+                ],[
+                    'team b', 'b@team.org',
+                    'coach 4', 1004,'race4',
+                    'coach 5', 1005,'race5',
+                    'coach 6', 1006,'race6'
+                ]
+            ]
+        ];
+        $index = 1;
+        $squads = [];
+        foreach(['a','b'] as $letter){
+            $members = [];
+            foreach([1,2,3] as $i){
+                $members[] = new CoachForTest("coach $index",1000+$index,"race$index");
+                $index++;
+            }
+            $squads[] = new SquadForTest("team $letter","$letter@team.org",$members);
+        }
+        $result = Csv::squadsToHeadersAndRows($squads);
+        $this->assertCount(2, $result);
+        $this->assertEquals($expected,$result);
     }
 }

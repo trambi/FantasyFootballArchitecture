@@ -20,13 +20,15 @@ namespace FantasyFootball\TournamentCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use FantasyFootball\TournamentCoreBundle\Util\ISquad;
+
 /**
  * CoachTeam
  *
  * @ORM\Table(name="tournament_coach_team")
   * @ORM\Entity(repositoryClass="FantasyFootball\TournamentCoreBundle\Entity\CoachTeamRepository")
  */
-class CoachTeam
+class CoachTeam implements ISquad
 {
   /**
    * @ORM\OneToMany(targetEntity="Coach", mappedBy="coachTeam")
@@ -81,7 +83,7 @@ class CoachTeam
    *
    * @return string 
    */
-  public function getName()
+  public function getName(): string
   {
     return $this->name;
   }
@@ -118,6 +120,16 @@ class CoachTeam
   public function getCoachs()
   {
     return $this->coachs;
+  }
+
+  public function getMembers(): array
+  {
+    return $this->coachs->toArray();
+  }
+
+  public function getEmail(): string 
+  {
+    return $this->coachs->isEmpty() ? '' : $this->coachs[0]->getEmail();
   }
   
   public function getStatusString()

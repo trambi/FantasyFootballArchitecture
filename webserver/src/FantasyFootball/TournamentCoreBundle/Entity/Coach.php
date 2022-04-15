@@ -305,6 +305,11 @@ class Coach
         return $this->race;
     }
 
+    public function getRaceName(): string
+    {
+        return $this->race->getEnglishName();
+    }
+
     /**
      * Set coachTeam
      *

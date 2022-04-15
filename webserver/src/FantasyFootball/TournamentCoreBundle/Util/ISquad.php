@@ -16,29 +16,11 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-namespace FantasyFootball\TournamentAdminBundle\Util;
+namespace FantasyFootball\TournamentCoreBundle\Util;
 
-
-class Csv{
-
- public static function filenameToArray(string $filename, string $delimiter = ','){
-    if( !file_exists($filename) || !is_readable($filename) ) {
-        return FALSE;
-    }
-    $header = NULL;
-    $data = array();
-    
-    if (($handle = fopen($filename, 'r')) !== FALSE) {
-      while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
-        $trimmedRow = array_map('trim',$row);
-        if(!$header) {
-          $header = $trimmedRow;
-        } else {
-          $data[] = array_combine($header, $trimmedRow);
-        }
-      }
-      fclose($handle);
-    }
-    return $data;
-  }
+interface ISquad{
+    public function getName(): string;
+    public function getEmail(): string;
+    public function getMembers(): array; 
 }
+
