@@ -30,7 +30,7 @@ def check_coach(coach):
         "ready",
     )
     for key in neededkeys:
-        assert coach.get(key) is not None
+        assert coach.get(key) is not None, f'key {key} should exist'
 
 
 def test_get_coach_list():
