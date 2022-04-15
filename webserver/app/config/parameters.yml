@@ -1,6 +1,6 @@
 parameters:
   database_host: <<dbhost>>
-  database_port: ~
+  database_port: 3306
   database_name: tournament
   database_user: <<dbuser>>
   database_password: <<dbpassword>>
