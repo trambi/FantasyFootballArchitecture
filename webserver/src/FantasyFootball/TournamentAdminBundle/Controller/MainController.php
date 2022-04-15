@@ -132,7 +132,7 @@ class MainController extends Controller{
     $games =  $em->getRepository('FantasyFootballTournamentCoreBundle:Game')->findByEdition($edition);
     $coachs =  $em->getRepository('FantasyFootballTournamentCoreBundle:Coach')->findByEdition($edition);
     if ( 'xml' === $format){
-      $content = $this->renderView('FantasyFootballTournamentAdminBundle:Main:naf.xml.twig',
+      $content = $this->renderView('@tournament_admin/Main/naf.xml.twig',
         ['edition'=>$editionObj,'coachs' => $coachs,
          'games' => $games,'dates'=>$dates]);
 
