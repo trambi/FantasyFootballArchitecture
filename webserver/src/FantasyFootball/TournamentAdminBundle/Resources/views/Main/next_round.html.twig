@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>Administration &Eacute;dition {{edition}} - tour {{round+1}}</h1>
-<h2>Matchs <span class="badge">{{ games|length }}</span></h2>
+<h2>Matchs <span class="badge bg-secondary">{{ games|length }}</span></h2>
 <a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
 <table class="table table-striped table-condensed">
     <thead>
@@ -19,14 +19,14 @@
 {% for game in games %}
         <tr>
             <td>{{game.getTableNumber()}}</td>
-            <td><a href="{{ path('_view_coach',{'coachId':game.getCoach1().getId()} )  }}" class="btn btn-info" role="button" >{{game.getCoach1().getName()}}</a></td>
-            <td><a href="{{ path('_view_coach',{'coachId':game.getCoach2().getId()} ) }}" class="btn btn-info" role="button" >{{game.getCoach2().getName()}}</a></td>
+            <td><a href="{{ path('_view_coach',{'coachId':game.getCoach1().getId()} )  }}" class="btn btn-info btn-sm" role="button" >{{game.getCoach1().getName()}}</a></td>
+            <td><a href="{{ path('_view_coach',{'coachId':game.getCoach2().getId()} ) }}" class="btn btn-info btn-sm" role="button" >{{game.getCoach2().getName()}}</a></td>
             <td>
-                <a href="{{ path('_resume_game',{'gameId':game.getId()} ) }}" class="btn btn-primary" role="button" >R&eacute;sumer</a>
-                <a href="{{ path('_delete_game',{'gameId':game.getId()} ) }}" class="btn btn-primary" role="button" >Supprimer</a></td>
+                <a href="{{ path('_resume_game',{'gameId':game.getId()} ) }}" class="btn btn-primary btn-sm" role="button" >R&eacute;sumer</a>
+                <a href="{{ path('_delete_game',{'gameId':game.getId()} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a></td>
         </tr>
 {% endfor %}
     </tbody>
 </table>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}

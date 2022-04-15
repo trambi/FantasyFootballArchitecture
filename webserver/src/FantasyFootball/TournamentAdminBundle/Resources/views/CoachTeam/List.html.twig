@@ -12,11 +12,11 @@
     {% if loop.last %} et {% else %}{% if loop.first == false %}, {% endif %}{% endif %}{{ innerCoach.getName() }}
 {% endfor %}
 {% endif %}
-            <a href="{{ path('_view_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-default" role="button" >Voir</a>
-            <a href="{{ path('_delete_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-default" role="button" >Supprimer</a>
-            <a href="{{ path('_modify_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-default" role="button" >Modifier</a></li>
+            <a href="{{ path('_view_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-info btn-sm" role="button" >Voir</a>
+            <a href="{{ path('_delete_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
+            <a href="{{ path('_modify_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-warning btn-sm" role="button" >Modifier</a></li>
 {% endfor %}
 </ul>
-<a href="{{ path('_add_coach',{'edition':edition} )  }}" class="btn btn-default" role="button" >Ajouter une triplette</a>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('_add_coach',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button" >Ajouter une triplette</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}

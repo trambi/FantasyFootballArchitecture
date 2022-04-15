@@ -6,9 +6,9 @@
 <h1>R&eacute;sultats NAF &Eacute;dition {{edition.id}}</h1>
 Tournoi organis&eacute; par {{edition.organiser}}.
 <p>{% block menuButtons %}
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition.id} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition.id} )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}</p>
-<h2>Coachs <span class="badge">{{ coachs|length }}</span></h2>
+<h2>Coachs <span class="badge bg-secondary">{{ coachs|length }}</span></h2>
 <ul class="list-group">
 {% for coach in coachs %}
 {% if ( 0 == coach.nafNumber ) %}
@@ -20,7 +20,7 @@ Tournoi organis&eacute; par {{edition.organiser}}.
 </ul>
 {{ block('menuButtons') }}
 {% if games %}
-<h2>Matchs jou&eacute;s <span class="badge">{{ games|length }}</span></h2>
+<h2>Matchs jou&eacute;s <span class="badge bg-secondary">{{ games|length }}</span></h2>
 <ul class="list-group">
 {% for game in games %}
     <li class="list-group-item">

@@ -4,20 +4,21 @@
 
 {% block body %}
 {% block menuButtons %}
-<a href="{{ path('_modify_coach_team',{'coachTeamId':coachTeam.getId(),'edition':edition} )  }}" class="btn btn-primary" role="button" >Modifier</a>
-<a href="{{ path('_delete_coach_team',{'coachTeamId':coachTeam.getId()} )  }}" class="btn btn-primary" role="button" >Supprimer</a>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('_modify_coach_team',{'coachTeamId':coachTeam.getId(),'edition':edition} )  }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
+<a href="{{ path('_delete_coach_team',{'coachTeamId':coachTeam.getId()} )  }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}
-<h1>Triplette : {{ coachTeam.name }} <span class="badge">{{ coachTeam.id }}</span></h1>
+<h1>Triplette : {{ coachTeam.name }} <span class="badge bg-secondary">{{ coachTeam.id }}</span></h1>
 <ul class="list-group">
 <li class="list-group-item"><label>Membres :</label>
 <ul class="list-group">
 {% for coach in coachTeam.getCoachs() %}
     <li class="list-group-item">
-        <a href="{{ path('_view_coach',{'coachId':coach.getId()} ) }}" class="btn btn-info" role="button"  >{{coach.getName()}}</a>
+        <a href="{{ path('_view_coach',{'coachId':coach.getId()} ) }}" class="btn btn-info btn-sm" role="button"  >{{coach.getName()}}</a>
         {{coach.race.frenchName}}
-        <a href="{{ path('_delete_coach',{'coachId':coach.getId()} ) }}" class="btn btn-primary" role="button" >Supprimer</a>
-        <a href="{{ path('_modify_coach',{'coachId':coach.getId()} ) }}" class="btn btn-primary" role="button" >Modifier</a></li>
+        <a href="{{ path('_modify_coach',{'coachId':coach.getId()} ) }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
+        <a href="{{ path('_delete_coach',{'coachId':coach.getId()} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
+        </li>
 {% endfor %}
 </ul></li>
 {% if matchs %}
@@ -42,26 +43,26 @@
 <tr>
     <td>{{match.round}}</td>
     <td>{{match.table}}</td>
-    <td><a href="{{ path('_view_coach',{'coachId':match.teamId1} )  }}" class="btn btn-info" role="button"  >{{match.coach1}}</a></td>
-    <td><a href="{{ path('_view_coach',{'coachId':match.teamId2} )  }}" class="btn btn-info" role="button"  >{{match.coach2}}</a></td>
+    <td><a href="{{ path('_view_coach',{'coachId':match.teamId1} )  }}" class="btn btn-info btn-sm" role="button"  >{{match.coach1}}</a></td>
+    <td><a href="{{ path('_view_coach',{'coachId':match.teamId2} )  }}" class="btn btn-info btn-sm" role="button"  >{{match.coach2}}</a></td>
     {% if match.status == 'programme' %}
         <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
-        {% else %}
-        <td><span class="label {% if match.td1 == match.td2 %}label-warning{% elseif match.td1>match.td2 %}label-success{% else %}label-danger{%endif %}">{{match.td1}} - {{match.td2}}</span></td>
+        <td><a href="{{ path('_resume_game',{'gameId':match.id} ) }}" class="btn btn-primary btn-sm" role="button" >R&eacute;sumer</a></td>
+    {% else %}
+        <td class="bg-{% if match.td1 == match.td2 %}warning{% elseif match.td1>match.td2 %}success{% else %}danger{%endif %}">{{match.td1}} - {{match.td2}}</td>
         <td>{{match.casualties1}}</td>
         <td>{{match.casualties2}}</td>
         <td>{{match.points1}}</td>
-        <td>{{match.points2}}</td>    
-        {% endif %}
+        <td>{{match.points2}}</td>
         <td>
-        {% if match.status == 'programme' %}
-            <a href="{{ path('_resume_game',{'gameId':match.id} ) }}" class="btn btn-primary" role="button" >R&eacute;sumer</a>
-        {% endif %}
-            <a href="{{ path('_delete_game',{'gameId':match.id} ) }}" class="btn btn-primary" role="button" >Supprimer</a></td>
+            <a href="{{ path('_modify_game',{'gameId':match.id} ) }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
+            <a href="{{ path('_delete_game',{'gameId':match.id} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
+        </td>
+    {% endif %}
     </tr>
 {% endfor %}
     </tbody>

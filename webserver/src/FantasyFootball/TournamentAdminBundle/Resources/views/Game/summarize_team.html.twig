@@ -4,8 +4,8 @@
 
 {% block body %}
 {% block menuButtons %}
-<a href="{{ path('_all_ranking',{'edition':edition} )  }}" class="btn btn-info" role="button">Synth&egrave;se des classements</a>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}" class="btn btn-primary" role="button">Administration</a>
+<a href="{{ path('_all_ranking',{'edition':edition} )  }}" class="btn btn-info btn-sm" role="button">Synth&egrave;se des classements</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition} )  }}" class="btn btn-primary btn-sm" role="button">Administration</a>
 {% endblock %}
 <h1>Synthese du round {{round}} du tournoi {{edition}}</h1>
 <dl>

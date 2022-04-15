@@ -4,23 +4,23 @@
 
 {% block body %}
 {% block menuButtons %}
-<a href="{{ path('_modify_coach',{'coachId':coach.id} )  }}" class="btn btn-primary" role="button" >Modifier</a>
-<a href="{{ path('_delete_coach',{'coachId':coach.id} )  }}" class="btn btn-primary" role="button" >Supprimer</a>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':coach.edition} )  }}"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('_modify_coach',{'coachId':coach.id} )  }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
+<a href="{{ path('_delete_coach',{'coachId':coach.id} )  }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':coach.edition} )  }} btn-sm"class="btn btn-primary" role="button"  >Administration</a>
 {% endblock %}
 
-<h1>Coach : {{ coach.getName() }} <span class="badge">{{ coach.getId() }}</span></h1>
+<h1>Coach : {{ coach.getName() }} <span class="badge bg-secondary">{{ coach.getId() }}</span></h1>
 <ul class="list-group">
 {%if coach.getNafNumber() %}<li class="list-group-item"><label>Numéro NAF :</label> {{ coach.getNafNumber() }}</li>{% endif %}
 {%if coach.getTeamName() %}<li class="list-group-item"><label>Nom d'&eacute;quipe :</label> {{ coach.getTeamName() }}</li>{% endif %}
 {%if race %}<li class="list-group-item"><label>Race :</label>
-    {{ race.getNomFr() }}<span class="badge">{{ race.getId() }}</span></li>{% endif %}
+    {{ race.getNomFr() }}<span class="badge bg-secondary">{{ race.getId() }}</span></li>{% endif %}
 <li class="list-group-item"><label>Courriel : </label> {{ coach.getEmail() }}</li>
 <li class="list-group-item"><label>Pr&ecirc;t : </label> {{ coach.getReady() }}</li>
 <li class="list-group-item"><label>Triplette :</label> {%if coach.hasCoachTeam() %}
     <a href="{{ path('_view_coach_team',{'coachTeamId':coachTeam.getId()} ) }}" class="btn btn-info" role="button" >
     {{ coachTeam.getName()}}</a>
-    <span class="badge">{{ coachTeam.getId() }}</span>{% else %}Non d&eacute;fini{% endif %}</li>
+    <span class="badge bg-secondary">{{ coachTeam.getId() }}</span>{% else %}Non d&eacute;fini{% endif %}</li>
 {%if matchs %}
 <li class="list-group-item"><label>Matchs </label>
 <table class="table table-striped">
@@ -34,6 +34,7 @@
             <th>Sorties adverses</th>
             <th>Points</th>
             <th>Points adverses</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -41,21 +42,26 @@
     <tr>
         <td>{{match.round}}</td>
         <td>{{match.table}}</td>
-        <td><a href="{{ path('_view_coach',{'coachId':match.teamId2} )  }}" class="btn btn-info" role="button" >{{match.coach2}}</a></td>
+        <td><a href="{{ path('_view_coach',{'coachId':match.teamId2} )  }}" class="btn btn-info btn-sm" role="button" >{{match.coach2}}</a></td>
         {% if match.status == 'programme' %}
         <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
+        <td><a href="{{ path('_resume_game',{'gameId':match.id} ) }}" class="btn btn-primary btn-sm" role="button" >R&eacute;sumer</a></td>
         {% else %}
-        <td><span class="label {% if match.td1 == match.td2 %}label-warning{% elseif match.td1>match.td2 %}label-success{% else %}label-danger{%endif %}">{{match.td1}} - {{match.td2}}</span></td>
+        <td class="bg-{% if match.td1 == match.td2 %}warning{% elseif match.td1>match.td2 %}success{% else %}danger{%endif %}">{{match.td1}} - {{match.td2}}</td>
         <td>{{match.casualties1}}</td>
         <td>{{match.casualties2}}</td>
         <td>{{match.points1}}</td>
-        <td>{{match.points2}}</td>    
+        <td>{{match.points2}}</td>
+        <td>
+            <a href="{{ path('_modify_game',{'gameId':match.id} ) }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
+            <a href="{{ path('_delete_game',{'gameId':match.id} ) }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a></td>
+        </td>
         {% endif %}
-        </tr>
+    </tr>
 {% endfor %}
     </tbody>
 </table>
