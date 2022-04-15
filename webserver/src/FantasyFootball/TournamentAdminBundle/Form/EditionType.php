@@ -39,7 +39,7 @@ class EditionType extends AbstractType
                       array('label'=>'Day 1:','widget' => 'single_text', 'input'=>'string'));
         $builder->add('day2', DateType::class,
                       array('label'=>'Day 2:','widget' => 'single_text', 'input'=>'string'));
-        $builder->add('roundNumber', IntegerType::class, array('label'=>'Round number:'));
+        $builder->add('roundNumber', IntegerType::class, array('label'=>'Round number:'));              
         $builder->add('firstDayRound', IntegerType::class, array('label'=>'Round number in first day:'));
         $builder->add('useFinale', CheckboxType::class, array(
                 'label' => 'Use finale:',
@@ -56,7 +56,7 @@ class EditionType extends AbstractType
             'label' => 'Ranking strategy:',
             'choices_as_values' => true)
         );
-
+        $builder->add('currentRound', IntegerType::class, array('label'=>'Current round:'));
         $builder->add('save',SubmitType::class, array('label'=>'Valider'));
     }
 
