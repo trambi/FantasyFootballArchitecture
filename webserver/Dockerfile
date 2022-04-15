@@ -23,13 +23,14 @@ ADD --chown=www-data:www-data https://code.jquery.com/jquery-3.3.1.js web/js/jqu
 ADD --chown=www-data:www-data https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js web/js/popper.js
 ADD --chown=www-data:www-data https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css web/css/datatables.css
 ADD --chown=www-data:www-data https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js web/js/datatables.js
-ADD --chown=www-data:www-data https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js web/js/bootstrap.js
-ADD --chown=www-data:www-data https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css web/css/bootstrap.css
+ADD --chown=www-data:www-data https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js web/js/bootstrap.js
+ADD --chown=www-data:www-data https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css web/css/bootstrap.css
 COPY --chown=www-data:www-data app/AppKernel.php app/AppKernel.php
 COPY --chown=www-data:www-data app/config app/config
 COPY --chown=www-data:www-data app/Resources app/Resources
 COPY --chown=www-data:www-data web/* web/
 COPY --chown=www-data:www-data src/FantasyFootball src/FantasyFootball
+COPY --chown=www-data:www-data tests/FantasyFootball tests/FantasyFootball
 RUN composer dump-autoload
 EXPOSE 80
 CMD ["/bin/bash","/tmp/adapt_param_from_env.bash"]
