@@ -44,7 +44,7 @@ class Csv{
     return $data;
   }
 
-  public static function maxMembers(int $max,$current){
+  protected static function maxMembers(int $max,$current){
     $currentNumber = count($current->getMembers()); 
     return $max < $currentNumber ? $currentNumber : $max;
   }
