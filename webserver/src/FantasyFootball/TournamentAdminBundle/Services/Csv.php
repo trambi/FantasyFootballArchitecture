@@ -44,8 +44,17 @@ class Csv{
     return $data;
   }
 
+  public static function maxMembers(int $max,$current){
+    $currentNumber = count($current->getMembers()); 
+    return $max < $currentNumber ? $currentNumber : $max;
+  }
+
+  protected static function getMaxNumberMembers($squads){
+    return array_reduce($squads,'self::maxMembers',0);
+  }
+
   public static function squadsToHeadersAndRows(array $squads): array{
-    $maxMembers = get_max_number_members($squads);
+    $maxMembers = self::getMaxNumberMembers($squads);
     return [
       'headers' => create_headers_for_squad($maxMembers),
       'rows' => create_rows_for_squad($squads,$maxMembers)
@@ -84,18 +93,6 @@ class Csv{
       ];
     },$games);  
   }
-}
-
-function max_members(int $max,ISquad $current){
-  $currentNumber = count($current->getMembers()); 
-  return $max < $currentNumber ? $currentNumber : $max;
-}
-
-function get_max_number_members($squads){
-  return array_reduce($squads,function (int $max,$current){
-    $currentNumber = count($current->getMembers());
-    return $max < $currentNumber ? $currentNumber : $max;
-  },0);
 }
 
 function create_headers_for_squad(int $maxMembers){
