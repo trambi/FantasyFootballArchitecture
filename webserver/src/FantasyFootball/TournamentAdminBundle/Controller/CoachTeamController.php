@@ -39,8 +39,6 @@ use FantasyFootball\TournamentAdminBundle\Form\CoachTeamType;
 
 use FantasyFootball\TournamentAdminBundle\Services\Csv;
 
-
-
 class CoachTeamController extends Controller{
   
   public function AddAction(Request $request,$edition){
@@ -253,7 +251,7 @@ class CoachTeamController extends Controller{
     return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
   }
 
-  public function ExportByEditionAction(LoggerInterface $logger,int $edition)
+  public function ExportByEditionAction(int $edition)
   {
     $coachTeams = $this->getDoctrine()->getRepository('FantasyFootballTournamentCoreBundle:CoachTeam')->findByEditionJoined($edition);
     $data = Csv::squadsToHeadersAndRows($coachTeams);

@@ -29,3 +29,9 @@ _summarize:
    requirements:
       edition:  \d+
       round:  \d+
+
+_export_games_by_edition:
+   path:    /exportByEdition/{edition}
+   defaults: { _controller: FantasyFootballTournamentAdminBundle:Game:ExportByEdition }
+   requirements:
+      edition:  \d+

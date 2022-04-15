@@ -20,6 +20,7 @@ namespace FantasyFootball\TournamentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use FantasyFootball\TournamentCoreBundle\Entity\Game;
 use FantasyFootball\TournamentCoreBundle\Entity\CoachRepository;
@@ -30,6 +31,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use FantasyFootball\TournamentAdminBundle\Services\Csv;
 
 class GameController extends Controller
 {
@@ -319,5 +322,20 @@ class GameController extends Controller
     }else{
         return $this->_summarize($games, $edition, $round);
     }
+  }
+
+  public function ExportByEditionAction(Request $request,int $edition){
+    $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery('SELECT g 
+      FROM FantasyFootballTournamentCoreBundle:Game g
+      WHERE g.edition=:edition
+      AND g.status <> \'programme\'')->setParameter('edition',$edition);
+    $games = $query->getResult();
+    $data = Csv::gamesToHeadersAndRows($games);
+    $content = $this->renderView('@tournament_admin/Main/export.csv.twig',
+      $data);
+    $response = new Response($content);
+    $response->headers->set('Content-Type','text/csv');
+    return $response;
   }
 }
