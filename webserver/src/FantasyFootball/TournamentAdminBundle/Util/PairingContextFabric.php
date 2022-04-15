@@ -34,7 +34,7 @@ class PairingContextFabric {
       } else {
         return new RandomCoachPairingContext($edition,$em,$conf);
       }
-    } elseif ( ( 1 === $edition->getUseFinale() ) && ($edition->getRoundNumber() === $round +1 ) ) {
+    } elseif ( ( TRUE === $edition->getUseFinale() ) && ($edition->getRoundNumber() === $round +1 ) ) {
       if ( TRUE === $isFullTeam ) {
          return new RankedCoachTeamWithFinalePairingContext($edition,$em,$conf);
       } else {
