@@ -4,9 +4,9 @@
 readonly clientContainer="ff_webclient"
 readonly serverContainer="ff_webserver"
 readonly dbContainer="database"
-readonly clientImage="localhost/ff_webclient:latest"
-readonly serverImage="localhost/ff_webserver:latest"
-readonly dbImage="localhost/ff_mariadb:latest"
+readonly clientImage="docker.io/trambi/fantasyfootball_webclient:18.0"
+readonly serverImage="docker.io/trambi/fantasyfootball_webserver:18.0"
+readonly dbImage="docker.io/trambi/fantasyfootball_db:18.0"
 
 usage(){
   echo "${0} build"
@@ -16,6 +16,9 @@ usage(){
   echo "  with the container names : ${clientContainer},${serverContainer} and ${dbContainer}"
   echo "${0} stop"
   echo "  kill and remove the three containers"
+  echo "${0} push"
+  echo "  push the three container images: ${clientImage},${serverImage} and ${dbImage}"
+   
 }
 
 start(){
@@ -47,33 +50,33 @@ build(){
     docker build -t ${serverImage} .
   )
 }
-done=0
-if [[ $# -gt 1 ]]
+
+push (){
+  docker push ${dbImage}
+  docker push ${clientImage}
+  docker push ${serverImage}
+}
+
+if [[ $# -ne 1 ]]
 then
   usage
   exit 1
 fi
 
-if [[ "$1" == "start" ]]
-then
-  start
-  done=1
-fi
-
-if [[ "$1" == "stop" ]]
-then
-  stop
-  done=1
-fi
-
-if [[ "$1" == "build" ]]
-then
-  build
-  done=1
-fi
-
-if [[ ${done} -eq 0 ]]
-then
-  usage
-  exit 1
-fi
+case ${1} in
+  "start")
+    start
+    ;;
+  "stop")
+    stop
+    ;;
+  "build")
+    build
+    ;;
+  "push")
+    push
+    ;;
+  *)
+    echo "invalid parameter '${1}'"
+    usage
+esac
