@@ -18,6 +18,7 @@ COPY --chown=www-data:www-data adapt_param_from_env.bash /tmp/adapt_param_from_e
 WORKDIR /var/www/html/ws
 RUN composer install
 RUN composer dump-autoload
+RUN chown -R www-data:www-data ./
 EXPOSE 80
 CMD ["/bin/bash","/tmp/adapt_param_from_env.bash"]
 
