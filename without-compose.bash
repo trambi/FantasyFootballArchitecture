@@ -4,9 +4,9 @@
 readonly clientContainer="ff_webclient"
 readonly serverContainer="ff_webserver"
 readonly dbContainer="database"
-readonly clientImage="docker.io/trambi/fantasyfootball_webclient:18.0"
-readonly serverImage="docker.io/trambi/fantasyfootball_webserver:18.0"
-readonly dbImage="docker.io/trambi/fantasyfootball_db:18.0"
+readonly clientImage="docker.io/trambi/fantasyfootball_webclient:18.1-dev"
+readonly serverImage="docker.io/trambi/fantasyfootball_webserver:18.1-dev"
+readonly dbImage="docker.io/trambi/fantasyfootball_db:18.1-dev"
 
 usage(){
   echo "${0} build"
