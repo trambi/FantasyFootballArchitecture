@@ -5,7 +5,7 @@
 {% block body %}
 {% block menuButtons %}
 {% for coachRanking in availableRankings.coach|keys %}
-<a href="{{ path('_coach_ranking',{'edition':edition,'type':coachRanking} )  }}" class="btn btn-info btn-sm" role="button">Classement individuel ({{coachRanking}})</a>
+<a href="{{ path('_coach_ranking',{'edition':edition,'type':coachRanking} )  }}" class="btn btn-secondary btn-sm" role="button">Classement individuel ({{coachRanking}})</a>
 {% endfor %}
 {% for coachTeamRanking in availableRankings.coachTeam|keys %}
 <a href="{{ path('_coach_team_ranking',{'edition':edition,'type':coachTeamRanking} )  }}" class="btn btn-info btn-sm" role="button">Classement équipe ({{coachTeamRanking}})</a>
