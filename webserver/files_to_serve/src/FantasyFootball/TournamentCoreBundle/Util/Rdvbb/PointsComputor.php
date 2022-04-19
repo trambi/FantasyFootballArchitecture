@@ -181,4 +181,23 @@ class PointsComputor{
     }
     return [$points1,$points2];
   }
+
+  static public function teamWin5TeamDraw2TeamLoss0($games){
+    $points1 = 0;
+    $points2 = 0;
+    $sum = self::teamCustom($games,5,5,2,0,0,0);
+    $sum1 = $sum[0];
+    $sum2 = $sum[1];
+    if ($sum1 < $sum2) {
+      $points1 = 0;
+      $points2 = 5;
+    } elseif ($sum1 === $sum2) {
+      $points1 = 2;
+      $points2 = 2;
+    } else {
+      $points1 = 5;
+      $points2 = 0;
+    }
+    return [$points1,$points2];
+  }
 }
