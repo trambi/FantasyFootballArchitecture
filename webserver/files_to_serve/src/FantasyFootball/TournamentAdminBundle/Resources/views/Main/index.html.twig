@@ -15,16 +15,24 @@
 <a href="{{ path('fantasy_football_tournament_simulate_games',{'edition':edition,'round':round} )  }}" class="btn btn-danger btn-sm" role="button">Simuler</a>
 {% endif %}
 {% if  round < roundNumber %}<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition,'round':round+1} )  }}" class="btn btn-secondary btn-sm" role="button">Ronde suivante</a>{% endif %}
-<button data-bs-toggle="collapse" class="btn btn-info btn-sm" data-bs-target="#coachRankings">Classements individuels</button>
+<button data-bs-toggle="collapse" 
+        class="btn {% if squadCompetition == 1 %}btn-secondary{% else %}btn-info{% endif %} btn-sm" 
+        data-bs-target="#coachRankings">Classements individuels</button>
 <div id="coachRankings" class="collapse">
 {% for coachRanking in rankings.coach|keys %}
-<a href="{{ path('_coach_ranking',{'edition':edition,'type':coachRanking} )  }}" class="btn btn-info btn-sm" role="button">Classement individuel ({{coachRanking}})</a>
+<a href="{{ path('_coach_ranking',{'edition':edition,'type':coachRanking} )  }}" 
+    class="btn {% if squadCompetition == 1 %}btn-secondary{% else %}btn-info{% endif %} btn-sm" 
+    role="button">Classement individuel ({{coachRanking}})</a>
 {% endfor %}
 </div> 
-<button data-bs-toggle="collapse" class="btn btn-info btn-sm" data-bs-target="#squadRankings">Classements par équipes</button>
+<button data-bs-toggle="collapse" 
+    class="btn {% if squadCompetition == 1 %}btn-info{% else %}btn-secondary{% endif %} btn-sm" 
+    data-bs-target="#squadRankings">Classements par équipes</button>
 <div id="squadRankings" class="collapse">
 {% for coachTeamranking in rankings.coachTeam|keys %}
-<a href="{{ path('_coach_team_ranking',{'edition':edition,'type':coachTeamranking} )  }}" class="btn btn-info btn-sm" role="button">Classement équipe ({{coachTeamranking}})</a>
+<a href="{{ path('_coach_team_ranking',{'edition':edition,'type':coachTeamranking} )  }}"
+    class="btn {% if squadCompetition == 1 %}btn-info{% else %}btn-secondary{% endif %} btn-sm"
+    role="button">Classement équipe ({{coachTeamranking}})</a>
 {% endfor %}
 </div>
 <a href="{{ path('_all_ranking',{'edition':edition} )  }}" class="btn btn-info btn-sm" role="button">Synth&egrave;se des classements</a>

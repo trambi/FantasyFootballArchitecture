@@ -70,7 +70,7 @@ class RankingStrategy18 implements IRankingStrategy {
   }
 
   public function computeCoachTeamPoints($games) {
-    $points = PointsComputor::teamWin2TeamDraw1TeamLoss0($games);
+    $points = PointsComputor::teamWin5TeamDraw2TeamLoss0($games);
     $points1 = $points[0] ;
     $points2 = $points[1] ;
     return [$points1,$points2];
