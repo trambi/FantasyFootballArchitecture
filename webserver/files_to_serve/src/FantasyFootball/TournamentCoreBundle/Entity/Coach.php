@@ -51,7 +51,8 @@ class Coach
         $this->edition = 0;    
         $this->nafNumber = 0;    
         $this->name = '';    
-        $this->teamName = '';    
+        $this->teamName = '';   
+        $this->email= ''; 
         $this->ready = false;
     }
     
@@ -67,7 +68,7 @@ class Coach
     /**
      * @var string
      *
-     * @ORM\Column(name="team_name", type="string", length=255)
+     * @ORM\Column(name="team_name", type="string", length=255,options={"default":""})
      */
     private $teamName;
 
@@ -81,7 +82,7 @@ class Coach
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255,options={"default":""})
      */
     private $email;
 
@@ -152,7 +153,7 @@ class Coach
      */
     public function setTeamName($teamName)
     {
-        $this->teamName = $teamName;
+        $this->teamName = $teamName === NULL ? '':$teamName;
 
         return $this;
     }
@@ -198,7 +199,7 @@ class Coach
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = $email === NULL ? '':$email;
 
         return $this;
     }

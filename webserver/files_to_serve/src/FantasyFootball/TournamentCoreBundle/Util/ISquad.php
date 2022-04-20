@@ -19,7 +19,7 @@
 namespace FantasyFootball\TournamentCoreBundle\Util;
 
 interface ISquad{
-    public function getName(): string;
+    public function getName(): ?string;
     public function getEmail(): string;
     public function getMembers(): array; 
 }
