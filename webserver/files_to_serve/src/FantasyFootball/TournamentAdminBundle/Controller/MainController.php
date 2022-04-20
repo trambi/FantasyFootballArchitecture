@@ -52,7 +52,8 @@ class MainController extends Controller{
     return $this->render('@tournament_admin/Main/index.html.twig',
       ['edition' => $editionId,'round' => $round,'matchesToPlay' => $matchesToPlay,
         'playedMatches' => $playedMatches,'roundNumber' => $edition->getRoundNumber(),
-        'rankings'=>$edition->getRankings()]);
+        'rankings'=>$edition->getRankings(),
+        'squadCompetition'=>$edition->getFullTriplette()]);
   }
 
   public function indexAction($edition,$round){

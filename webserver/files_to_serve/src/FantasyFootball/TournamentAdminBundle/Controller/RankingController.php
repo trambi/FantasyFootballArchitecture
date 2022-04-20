@@ -50,8 +50,10 @@ class RankingController extends Controller
         $ranking = $data->getCoachTeamRanking($editionObj);
       }
       return $this->render('@tournament_admin/Ranking/coach_team.html.twig',
-        ['edition' => $edition,'ranking' => $ranking,'type'=>$type,'round'=>$currentRound,
-        'params' => $params,'availableRankings'=>$availableRankings]);
+        ['edition' => $edition,'ranking' => $ranking,'type'=>$type,
+        'round'=>$currentRound,'params' => $params,
+        'availableRankings'=>$availableRankings,
+        'squadCompetition'=>$editionObj->getFullTriplette()]);
     }else{
       return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
     }
@@ -83,8 +85,10 @@ class RankingController extends Controller
         $ranking = $data->getMainCoachRanking($editionObj);
       }
       return $this->render('@tournament_admin/Ranking/coach.html.twig',
-        ['edition' => $edition,'ranking' => $ranking,'type'=>$type,'round'=>$currentRound,
-        'params' => $params,'availableRankings'=>$availableRankings]);
+        ['edition' => $edition,'ranking' => $ranking,'type'=>$type,
+        'round'=>$currentRound,'params' => $params,
+        'availableRankings'=>$availableRankings,
+        'squadCompetition'=>$editionObj->getFullTriplette()]);
     }else{
       return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
     }
@@ -142,7 +146,9 @@ class RankingController extends Controller
       'allCoachRankings' => $allRanking['coach'],
       'allCoachTeamRankings' => $allRanking['coachTeam'],
       'allCoachParams' => $allParams['coach'],
-      'allCoachTeamParams' => $allParams['coachTeam']]);
+      'allCoachTeamParams' => $allParams['coachTeam'],
+      'squadCompetition'=>$editionObj->getFullTriplette()
+    ]);
   }
 }
 ?>
