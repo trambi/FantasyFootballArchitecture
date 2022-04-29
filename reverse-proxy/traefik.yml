@@ -1,0 +1,12 @@
+api:
+  debug: true
+log:
+  level: "debug"
+
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  file:
+    filename: /tmp/dynamic.yml

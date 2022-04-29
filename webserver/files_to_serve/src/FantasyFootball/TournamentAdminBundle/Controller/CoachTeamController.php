@@ -1,7 +1,7 @@
 <?php
 /*
-    FantasyFootball Symfony2 bundles - Symfony2 bundles collection to handle fantasy football tournament 
-    Copyright (C) 2017  Bertrand Madet
+    FantasyFootball Symfony3 bundles - Symfony3 bundles collection to handle fantasy football tournament 
+    Copyright (C) 2017-2022  Bertrand Madet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use Doctrine\ORM\NoResultException;
 
@@ -57,7 +58,7 @@ class CoachTeamController extends Controller{
     if ($form->isValid()) {
       $em->persist($coachTeam);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0]));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0],UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/CoachTeam/Add.html.twig',
       ['form' => $form->createView(),'edition'=> $edition]);
@@ -77,7 +78,7 @@ class CoachTeamController extends Controller{
         $coach->setCoachTeam($coachTeam);
       }
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition]));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition],UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/CoachTeam/Modify.html.twig',
       ['form' => $form->createView(),'coachTeam' => $coachTeam,'edition' => $edition]);
@@ -105,7 +106,7 @@ class CoachTeamController extends Controller{
       }
       $em->remove($coachTeam);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition]));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition],UrlGeneratorInterface::RELATIVE_PATH));
     }else{
       foreach($coachTeam->getCoachs() as $coach){
         $edition = $coach->getEdition();
@@ -131,7 +132,7 @@ class CoachTeamController extends Controller{
       $em->getRepository('FantasyFootballTournamentCoreBundle:CoachTeam')->deleteByEdition($edition);
       $em->getRepository('FantasyFootballTournamentCoreBundle:Coach')->deleteByEdition($edition);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0]));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0],UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/CoachTeam/DeleteByEdition.html.twig',
       ['form' => $form->createView(),'edition'=>$edition]);
@@ -204,7 +205,7 @@ class CoachTeamController extends Controller{
           $em->flush();
         }
       }
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0]));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',['edition'=>$edition,'round'=>0],UrlGeneratorInterface::RELATIVE_PATH));
     }
 
     return $this->render('@tournament_admin/CoachTeam/Load.html.twig',
@@ -248,7 +249,7 @@ class CoachTeamController extends Controller{
         $edition = $coach->getEdition();
     }
     $em->flush();
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
   }
 
   public function ExportByEditionAction(int $edition)

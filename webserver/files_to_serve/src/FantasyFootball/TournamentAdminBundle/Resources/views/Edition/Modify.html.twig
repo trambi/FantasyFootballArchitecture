@@ -4,5 +4,5 @@
 
 {% block body %}
 {{ form(form) }}
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition.id,'round':0} )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':edition.id,'round':0},true )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}

@@ -13,5 +13,5 @@ D&eacute;tails du match : <ul class="list-group">
     <li class="list-group-item">Round : {{game.round}}</li>
     <li class="list-group-item">Table : {{game.tableNumber}}</li>   
 </ul>
-<a href="{{ path('fantasy_football_tournament_admin_main' )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{},true )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}

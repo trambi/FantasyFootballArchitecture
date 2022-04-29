@@ -3,14 +3,22 @@ services:
   webclient:
     build: "./webclient/docker"
     ports:
+      - "8081:80"
+    networks:
+      - frontend
+    restart: on-failure
+    depends_on:
+      - "webserver"
+  proxy:
+    build: "./reverse-proxy"
+    ports:
       - "80:80"
     networks:
       - frontend
     restart: on-failure
     depends_on:
       - "webserver"
-    environment:
-      - API_FQDN=${API_FQDN}
+      - "webclient"
   webserver:
     build: "./webserver"
     ports:
