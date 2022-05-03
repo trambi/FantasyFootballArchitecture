@@ -1,0 +1,55 @@
+version: '2'
+services:
+  webclient:
+    image: "docker.io/trambi/fantasyfootball_webclient:18.2"
+    ports:
+      - "8081:80"
+    networks:
+      - frontend
+    restart: on-failure
+    depends_on:
+      - "webserver"
+  proxy:
+    image: "docker.io/trambi/fantasyfootball_proxy:18.2"
+    ports:
+      - "80:80"
+    networks:
+      - frontend
+    restart: on-failure
+    depends_on:
+      - "webserver"
+      - "webclient"
+  webserver:
+    image: "docker.io/trambi/fantasyfootball_webserver:18.2"
+    ports:
+      - "8080:80"
+    networks:
+      - frontend
+      - backend
+    restart: on-failure
+    depends_on:
+      - "database"
+    environment:
+      - DBHOST=database
+      - DBUSER=${DB_USER}
+      - DBPASSWD=${DB_PASSWORD}
+  database:
+    image: "docker.io/trambi/fantasyfootball_db:18.2"
+    environment:
+      - MYSQL_DATABASE=tournament
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    networks:
+      - backend
+    volumes:
+      - "mydata:/var/lib/mysql"
+      - "./tournament_init.sql:/docker-entrypoint-initdb.d/01-tournament-init.sql:Z"
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+volumes:
+  mydata:
