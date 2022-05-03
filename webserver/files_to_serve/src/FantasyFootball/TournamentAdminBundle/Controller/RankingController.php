@@ -1,7 +1,7 @@
 <?php
 /*
-    FantasyFootball Symfony2 bundles - Symfony2 bundles collection to handle fantasy football tournament
-    Copyright (C) 2017  Bertrand Madet
+    FantasyFootball Symfony3 bundles - Symfony3 bundles collection to handle fantasy football tournament
+    Copyright (C) 2017-2022  Bertrand Madet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 namespace FantasyFootball\TournamentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
 
 class RankingController extends Controller
@@ -55,7 +56,7 @@ class RankingController extends Controller
         'availableRankings'=>$availableRankings,
         'squadCompetition'=>$editionObj->getFullTriplette()]);
     }else{
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',[],UrlGeneratorInterface::RELATIVE_PATH));
     }
   }
 
@@ -90,7 +91,7 @@ class RankingController extends Controller
         'availableRankings'=>$availableRankings,
         'squadCompetition'=>$editionObj->getFullTriplette()]);
     }else{
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',[],UrlGeneratorInterface::RELATIVE_PATH));
     }
   }
 

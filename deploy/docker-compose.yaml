@@ -1,7 +1,7 @@
 version: '2'
 services:
   webclient:
-    build: "./webclient/docker"
+    image: "docker.io/trambi/fantasyfootball_webclient:18.2"
     ports:
       - "8081:80"
     networks:
@@ -10,7 +10,7 @@ services:
     depends_on:
       - "webserver"
   proxy:
-    build: "./reverse-proxy"
+    image: "docker.io/trambi/fantasyfootball_proxy:18.2"
     ports:
       - "80:80"
     networks:
@@ -20,7 +20,7 @@ services:
       - "webserver"
       - "webclient"
   webserver:
-    build: "./webserver"
+    image: "docker.io/trambi/fantasyfootball_webserver:18.2"
     ports:
       - "8080:80"
     networks:
@@ -34,7 +34,7 @@ services:
       - DBUSER=${DB_USER}
       - DBPASSWD=${DB_PASSWORD}
   database:
-    build: "./mariadb/docker"
+    image: "docker.io/trambi/fantasyfootball_db:18.2"
     environment:
       - MYSQL_DATABASE=tournament
       - MYSQL_USER=${DB_USER}
@@ -44,7 +44,7 @@ services:
       - backend
     volumes:
       - "mydata:/var/lib/mysql"
-      - "./mariadb/docker/sql:/docker-entrypoint-initdb.d/:Z"
+      - "./tournament_init.sql:/docker-entrypoint-initdb.d/01-tournament-init.sql:Z"
 
 networks:
   frontend:

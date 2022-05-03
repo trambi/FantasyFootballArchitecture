@@ -1,7 +1,7 @@
 <?php
 /*
-    FantasyFootball Symfony2 bundles - Symfony2 bundles collection to handle fantasy football tournament 
-    Copyright (C) 2017  Bertrand Madet
+    FantasyFootball Symfony3 bundles - Symfony3 bundles collection to handle fantasy football tournament 
+    Copyright (C) 2017-2022  Bertrand Madet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,13 @@ namespace FantasyFootball\TournamentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
-use FantasyFootball\TournamentAdminBundle\Util\DataUpdater;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use FantasyFootball\TournamentCoreBundle\Entity\Coach;
+use FantasyFootball\TournamentAdminBundle\Util\DataUpdater;
 use FantasyFootball\TournamentAdminBundle\Form\CoachType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class CoachController extends Controller{
   
@@ -39,7 +40,7 @@ class CoachController extends Controller{
       $em = $this->getDoctrine()->getManager();
       $em->persist($coach);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
     }
 
     return $this->render('@tournament_admin/Coach/Add.html.twig',
@@ -73,14 +74,14 @@ class CoachController extends Controller{
   {
     $this->setReady($coachId,true);
     $edition = $this->getEditionByCoachId($coachId);
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
   }
 
   public function UnreadyAction($coachId)
   {
     $this->setReady($coachId,false);
     $edition = $this->getEditionByCoachId($coachId);
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
   }
 
   public function ModifyAction(Request $request,$coachId)
@@ -92,7 +93,7 @@ class CoachController extends Controller{
     $form->handleRequest($request);
     if ($form->isValid()) {
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition)));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition),UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/Coach/Modify.html.twig', 
       ['form' => $form->createView(),'coach' => $coach] );    
@@ -111,7 +112,7 @@ class CoachController extends Controller{
     if ($form->isValid()) {
       $em->remove($coach);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition)));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition),UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/Coach/Delete.html.twig',
       ['coach'=>$coach,'form' => $form->createView()]);
@@ -124,7 +125,7 @@ class CoachController extends Controller{
     $em = $this->getDoctrine()->getManager();
     $coach = $em->getRepository('FantasyFootballTournamentCoreBundle:Coach')->findOneByIdJoined($coachId);
     if(! $coach){
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',[],UrlGeneratorInterface::RELATIVE_PATH));
     }
     $matchs = $data->getMatchsByCoach($coachId);
     $edition = $coach->getEdition();
@@ -141,11 +142,11 @@ class CoachController extends Controller{
   
   public function ReadyByEditionAction($edition){
     $this->setReadyByEdition($edition,true);
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
   }
   
   public function UnreadyByEditionAction($edition){
     $this->setReadyByEdition($edition,false);
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0)));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition,'round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
   }
 }

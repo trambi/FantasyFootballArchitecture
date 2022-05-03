@@ -1,7 +1,7 @@
 <?php
 /*
-    FantasyFootball Symfony2 bundles - Symfony2 bundles collection to handle fantasy football tournament
-    Copyright (C) 2017  Bertrand Madet
+    FantasyFootball Symfony3 bundles - Symfony3 bundles collection to handle fantasy football tournament
+    Copyright (C) 2017-2022  Bertrand Madet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ namespace FantasyFootball\TournamentAdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use FantasyFootball\TournamentCoreBundle\Entity\Edition;
 use FantasyFootball\TournamentAdminBundle\Form\EditionType;
@@ -36,7 +37,7 @@ class EditionController extends Controller{
       $em = $this->getDoctrine()->getManager();
       $em->persist($edition);
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('round'=>0)));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('round'=>0),UrlGeneratorInterface::RELATIVE_PATH));
     }
 
     return $this->render('@tournament_admin/Edition/Add.html.twig',
@@ -51,7 +52,7 @@ class EditionController extends Controller{
     $form->handleRequest($request);
     if ($form->isValid()) {
       $em->flush();
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition)));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',array('edition'=>$edition),UrlGeneratorInterface::RELATIVE_PATH));
     }
     return $this->render('@tournament_admin/Edition/Modify.html.twig', 
       ['form' => $form->createView(),'edition' => $editionObj] );    

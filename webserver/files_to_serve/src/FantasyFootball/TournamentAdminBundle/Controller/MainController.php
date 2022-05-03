@@ -1,7 +1,7 @@
 <?php
 /*
-    FantasyFootball Symfony2 bundles - Symfony2 bundles collection to handle fantasy football tournament 
-    Copyright (C) 2017  Bertrand Madet
+    FantasyFootball Symfony3 bundles - Symfony3 bundles collection to handle fantasy football tournament 
+    Copyright (C) 2017-2022  Bertrand Madet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,12 +20,14 @@ namespace FantasyFootball\TournamentAdminBundle\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Response;
 use FantasyFootball\TournamentCoreBundle\Util\DataProvider;
 use FantasyFootball\TournamentAdminBundle\Util\PairingContextFabric;
 use FantasyFootball\TournamentAdminBundle\Util\SwissRoundStrategy;
 use FantasyFootball\TournamentCoreBundle\Entity\Edition;
 
-use Symfony\Component\HttpFoundation\Response;
+
 
 class MainController extends Controller{
 
@@ -87,7 +89,7 @@ class MainController extends Controller{
     $count = $em->getRepository('FantasyFootballTournamentCoreBundle:Game')
                 ->countScheduledGamesByEditionAndRound($edition,$round);
     if( ( 0 === $count ) || ( $editionObj->getRoundNumber() === $round  ) ){
-      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
+      return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',[],UrlGeneratorInterface::RELATIVE_PATH));
     }
     $logger->info('round: '. $round . " " . gettype($round));
     $logger->info('fullTriplette: '. $editionObj->getFullTriplette(). " " . gettype($editionObj->getFullTriplette()));
@@ -104,7 +106,7 @@ class MainController extends Controller{
     $pairingContext->persist($games, $nextRound);
     $editionObj->setCurrentRound($nextRound);
     $em->flush();
-    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main'));
+    return $this->redirect($this->generateUrl('fantasy_football_tournament_admin_main',[],UrlGeneratorInterface::RELATIVE_PATH));
   }
 
   protected function createDates(Edition $edition)

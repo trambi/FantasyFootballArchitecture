@@ -1,0 +1,38 @@
+http:
+  routers:
+    client:
+      rule: "PathPrefix(`/live`)"
+      middlewares:
+        - adaptToLive
+      service: client
+    api:
+      rule: "PathPrefix(`/ws`)"
+      middlewares:
+        - adapt2Symfony
+      service: ws
+    admin:
+      rule: "PathPrefix(`/admin`)"
+      middlewares:
+        - adapt2Symfony
+      service: admin
+  middlewares:
+    adaptToLive:
+      stripPrefix:
+        prefixes:
+          - "/live"
+    adapt2Symfony:
+      addPrefix:
+        prefix: "app.php"
+  services:
+    client:
+      loadBalancer:
+        servers:
+        - url: http://webclient
+    ws:
+      loadBalancer:
+        servers:
+        - url: http://webserver
+    admin:
+      loadBalancer:
+        servers:
+        - url: http://webserver
