@@ -6,7 +6,7 @@
 {% block menuButtons %}
 <a href="{{ path('_modify_coach',{'coachId':coach.id},true )  }}" class="btn btn-warning btn-sm" role="button" >Modifier</a>
 <a href="{{ path('_delete_coach',{'coachId':coach.id},true )  }}" class="btn btn-danger btn-sm" role="button" >Supprimer</a>
-<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':coach.edition},true )  }} btn-sm"class="btn btn-primary" role="button"  >Administration</a>
+<a href="{{ path('fantasy_football_tournament_admin_main',{'edition':coach.edition},true )  }}"class="btn btn-primary btn-sm" role="button"  >Administration</a>
 {% endblock %}
 
 <h1>Coach : {{ coach.getName() }} <span class="badge bg-secondary">{{ coach.getId() }}</span></h1>
