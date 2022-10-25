@@ -1,13 +1,14 @@
 # Fantasy Football Architecture
 This repository is about the architecture of Fantasy Football tournament.
 
- * `deploy` directory contains deployment files;
- * `docs` directory contains documentation about architecture;
- * `dns` directory contains technical files to handle name resolution;
- * `mariadb` directory contains dockerfile and SQL to create database;
- * `reverse-proxy` contains configuration to create a reverse-proxy;
- * `webclient` contains dockerfile to create a docker container serving webclient;
- * `webserver` contains dockerfile to create a docker container serving server side (API REST web service and Admin apps) and python script to test API.
+- `deploy` directory contains deployment files;
+- `docs` directory contains documentation about architecture;
+- `domain` directory contains documentation about domain after an event storming
+- `dns` directory contains technical files to handle name resolution;
+- `mariadb` directory contains dockerfile and SQL to create database;
+- `reverse-proxy` contains configuration to create a reverse-proxy;
+- `webclient` contains dockerfile to create a docker container serving webclient;
+- `webserver` contains dockerfile to create a docker container serving server side (API REST web service and Admin apps) and python script to test API.
 
 ## Launch
 
