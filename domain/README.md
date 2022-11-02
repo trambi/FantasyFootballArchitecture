@@ -76,3 +76,5 @@ graph LR;
     waitedCoachs-->replaceCoach
     replaceCoach-->waitedCoachs
 ```
+
+Il manque peut-être la distribution des goodies dans ce domaine.
