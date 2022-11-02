@@ -24,13 +24,13 @@ As I had been done in french, this page is for now in french :fr:.
 - Langage commun (ubiquitous language :gb:) : Langage utilisé par les experts du métier pour parler du métier, ici, langage utilisé par les experts des tournois de Bloodbowl pour parler des tournois de Bloodbowl ;
 - Processus métier : Ensemble de modification qui permettent de passer d'un évènement de début de contexte à un évènement de fin de contexte ;
 
-### Frise des évènements
+## Frise des évènements
 
 Voici la liste des évènements ordonnés
 
 ![Frise des évènements](./frise-evenements-2022-08-25.png)
 
-### Domaines
+## Domaines
 
 Il a été identifié 7 domaines dont nous avons tirés des contextes :
 
@@ -45,3 +45,34 @@ Il a été identifié 7 domaines dont nous avons tirés des contextes :
 ![Contextes délimités](./ddd-seance-4-2022-08-26.png).
 
 Dans le cadre de cette architecture, les contextes d'intérêt sont `présence`, `exécution` et `joueurs`.
+
+### Contexte présence
+
+L'évènement d'entrée de ce contexte est `Listes des squads inscrites produite` et l'évènement de sortie de ce contexte est `Liste des squads prêts complète`.
+
+```mermaid
+graph LR;
+    bookedSquads((Listes des squads inscrites produite))-->extractCoachs[extraire les coachs]
+    extractCoachs-->waitedCoachs(Liste des coachs attendus produite)
+    waitedCoachs-->pointACoach[Pointer un coach]
+    spottedCoach(Coach vu)-->pointACoach
+    pointACoach-->readyCoach(Coach indiqué comme prêt)
+    readyCoach-->updateReadyCoachs[Mettre à jour la liste des coachs prêts]
+    bookedSquads-->pointASquad[Pointer un squad]
+    spottedSquad(Squad vu)-->pointASquad
+    pointASquad-->readySquad(Squad indiqué comme prêt)
+    readySquad-->updateReadyCoachs[Mettre à jour la liste des coachs prêts]
+    updateReadyCoachs-->readyCoachs(liste des coachs prêts produites)
+    readyCoachs-->check[Verifier la liste des coachs prêts]
+    waitedCoachs-->check
+    check-->out((Liste des squads prêts complète))
+    check-->nok(Liste des squads prêts incomplète)
+    nok-->pointACoach
+    nok-->pointASquad
+    choiceToRemoveSquad(Décision de suppression d'un squad prise)-->removeSquad[Suppression d'un squad]
+    bookedSquads-->removeSquad
+    removeSquad-->waitedCoachs
+    choiceToReplaceCoach(Décision d'échange d'un coach attendu)-->replaceCoach[Remplacer un coach]
+    waitedCoachs-->replaceCoach
+    replaceCoach-->waitedCoachs
+```
