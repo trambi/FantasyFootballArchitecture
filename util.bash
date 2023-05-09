@@ -1,9 +1,11 @@
 #! /bin/bash
-readonly compose-cmd=podman-compose
-readonly clientImage="docker.io/trambi/fantasyfootball_webclient:18.2"
+readonly composeCmd="podman-compose"
+readonly tagCmd="podman image tag"
+readonly pushCmd="podman image push"
+readonly clientImage="docker.io/trambi/fantasyfootball_webclient:19.0"
 readonly serverImage="docker.io/trambi/fantasyfootball_webserver:18.2"
 readonly dbImage="docker.io/trambi/fantasyfootball_db:18.2"
-readonly reverseProxyImage="docker.io/trambi/fantasyfootball_proxy:18.2"
+readonly reverseProxyImage="docker.io/trambi/fantasyfootball_proxy:19.0"
 
 usage(){
   echo "${0} build"
@@ -22,26 +24,26 @@ start(){
   then
     source .env
   fi
-  ${compose-cmd} up -d
+  ${composeCmd} up -d
 }
 
 stop(){
-  ${compose-cmd} down
+  ${composeCmd} down
 }
 
 build(){
-  ${compose-cmd} build
+  ${composeCmd} build
 }
 
 push (){
-  docker tag localhost/fantasyfootballarchitecture_database:latest ${dbImage}
-  docker push ${dbImage}
-  docker tag localhost/fantasyfootballarchitecture_webclient:latest ${clientImage}
-  docker push ${clientImage}
-  docker tag localhost/fantasyfootballarchitecture_webserver:latest ${serverImage}
-  docker push ${serverImage}
-  docker tag localhost/fantasyfootballarchitecture_proxy:latest ${reverseProxyImage}
-  docker push ${reverseProxyImage}
+  ${tagCmd} localhost/fantasyfootballarchitecture_database:latest ${dbImage}
+  ${pushCmd} ${dbImage}
+  ${tagCmd} localhost/fantasyfootballarchitecture_webclient:latest ${clientImage}
+  ${pushCmd} ${clientImage}
+  ${tagCmd} localhost/fantasyfootballarchitecture_webserver:latest ${serverImage}
+  ${pushCmd} ${serverImage}
+  ${tagCmd} localhost/fantasyfootballarchitecture_proxy:latest ${reverseProxyImage}
+  ${pushCmd} ${reverseProxyImage}
 }
 
 if [[ $# -ne 1 ]]
