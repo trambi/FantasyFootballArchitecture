@@ -1,0 +1,18 @@
+:80
+
+handle_path /live/* {
+	reverse_proxy webclient:80
+}
+handle /ws/* {
+	rewrite * /app.php{uri}
+	reverse_proxy webserver:80
+}
+
+handle /admin/* {
+	basicauth {
+                rremy {$RREMY_PASSWORD}
+                trambi {$TRAMBI_PASSWORD}
+        }
+	rewrite * /app.php{uri}
+	reverse_proxy webserver:80
+}

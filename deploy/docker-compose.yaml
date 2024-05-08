@@ -9,16 +9,35 @@ services:
     restart: on-failure
     depends_on:
       - "webserver"
-  proxy:
-    image: "docker.io/trambi/fantasyfootball_proxy:18.2"
+  tlsproxy:
+    image: "caddy:2.7"
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - frontend
-    restart: on-failure
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    restart: unless-stopped
     depends_on:
       - "webserver"
       - "webclient"
+    environment:
+      - RREMY_PASSWORD=${RREMY_PASSWORD}
+      - TRAMBI_PASSWORD=${TRAMBI_PASSWORD}
+
+        #  proxy:
+        #    image: "docker.io/trambi/fantasyfootball_proxy:18.2"
+        #    ports:
+        #      - "80:80"
+        #    networks:
+        #      - frontend
+        #    restart: on-failure
+        #    depends_on:
+        #      - "webserver"
+        #      - "webclient"
   webserver:
     image: "docker.io/trambi/fantasyfootball_webserver:18.2"
     ports:
@@ -53,3 +72,5 @@ networks:
     driver: bridge
 volumes:
   mydata:
+  caddy_data:
+  caddy_config:
